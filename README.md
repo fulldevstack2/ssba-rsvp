@@ -9,42 +9,45 @@ Each design is one HTML file. No build server, no framework, no tracking. Drop
 
 ---
 
-## The two designs
+## Four designs, one invitation
 
-Both carry the same content, the same bilingual copy and the same RSVP. They are
-two registers of one wedding, and the choice between them is a choice of mood.
+Open `index.html` — that is the chooser, and the only page that is not part of
+the invitation. It shows all four side by side, each painted in its own colours.
 
-### A — **NUR** (Light) · `design-a/`
+The words, the running order, the bilingual copy and the RSVP are **identical in
+all four**. Only the design changes. All four are daylight: the couple's stated
+theme is all white with Arab and Islamic elements, so what varies is which kind
+of white and what the white is made of. Each is named for the object it imitates.
 
-Gold on ivory, in daylight. The ground is a lit surface rather than flat white:
-a slow caustic light field drifts behind everything, under a vignette and real
-tiling film grain. Rose petals rise on the updraft across the hero, drawn in
-Canvas with a true petal profile and shaded across the curl. The couple's names
-carry the page, set in Cinzel at roughly 124px on a laptop.
+| | Direction | Object | Display face |
+|---|---|---|---|
+| **01** | **Nur** · Gilded daylight | A gilded ivory card held up to a window | Cinzel |
+| **02** | **Kertas** · Ink on paper | A broadsheet folded once, and a seal stamped in red | Playfair |
+| **03** | **Kapur** · Plaster and shadow | A whitewashed courtyard at midday, and the arch that shades it | Italiana |
+| **04** | **Mutiara** · Mother-of-pearl | A pearl-inlaid box, and a length of white silk | Bodoni Moda |
 
-* **Type** Cinzel (display) · Cormorant Garamond (narrative) ·
-  Cormorant SC (small caps) · Manrope (utility) · Reem Kufi and Amiri (Arabic).
-* **Set piece** the four gatherings are pinned and slide sideways as you scroll.
-* **Detail** arch-masked image bays that a curtain lifts off, a gold progress
-  hairline, and the khatam as a watermark behind the invitation and the footer.
+**Nur** is the brief read literally: ivory under a slow caustic light, one weight
+of gilt, petals rising, the khatam behind the invitation as a watermark.
 
-### B — **KERTAS** (Paper) · `design-b/`
+**Kertas** is the boldest and the furthest from convention — warm paper,
+green-black ink, one lacquer red, no gold at all, left-aligned with the sections
+numbering themselves in the margin.
 
-An editorial broadsheet. Warm ivory paper, green-black ink, and one lacquer red
-as the only accent. No gold anywhere. Left-aligned and asymmetric, with the
-sections numbering themselves in the margin. Playfair at optical size 1200,
-where its hairlines nearly vanish, set around 190px on a laptop and still
-growing with the viewport.
+**Kapur** is white on white with no metal anywhere. The groom's Hadhrami family
+built in lime plaster, and the only ornament is the shadow a pointed arch throws
+across the wall. It travels as you scroll.
 
-* **Type** Playfair (display) · Newsreader (narrative) ·
-  Instrument Sans (utility) · Aref Ruqaa and Amiri (Arabic).
-* **Set piece** the gatherings are large numbered rows that light up one at a
-  time, a deliberately different gesture from the sliding rail in NUR.
-* **Note** KERTAS departs from the couple's stated all-white-with-Arab-and-
-  Islamic-elements theme. It is the bolder option, not the on-brief one. NUR
-  is the one that matches what they have said publicly.
+**Mutiara** is the couture reading: pearl rather than ivory, with the nacre's own
+iridescence moving across the names instead of gold.
 
-Both are mobile-first, bilingual, and single-theme by choice.
+### How a concept is built
+
+`src/page.html` is the one template. `src/concepts/_base.css` holds every
+component and reads only semantic tokens. A concept is therefore short — a
+palette, four typefaces and its own personality — and lives in
+`src/concepts/<id>.css`, registered in `src/concepts.cjs`.
+
+Adding a fifth direction means writing one stylesheet and one registry entry.
 
 ## What guests can do
 
@@ -97,7 +100,7 @@ except Google Fonts.
 
 ### 4. Publish
 
-Upload the chosen `design-*/index.html` as `index.html`. Netlify, Cloudflare Pages,
+Upload the chosen `design/<id>/index.html` as `index.html`. Netlify, Cloudflare Pages,
 Vercel and GitHub Pages all work with no configuration. Both files carry
 `noindex, nofollow` so the invitation stays off search engines — remove that meta tag
 only if the couple wants it public.
@@ -150,15 +153,17 @@ src/content.js       every word, in Bahasa Melayu and English
 src/app.js           shared behaviour: language, RSVP, calendar, wishes, countdown
 src/fx.js            motion and material: opening sequence, split type, grain,
                      caustic light, petals, parallax, the pinned rail
-src/a/               design A "NUR" — index.html + style.css
-src/b/               design B "KERTAS" — index.html + style.css
+src/page.html        the one page template every concept is built from
+src/concepts.cjs     the registry: names, premises, palettes, typefaces
+src/concepts/        _base.css plus one short sheet per direction
+src/chooser.html     the front door
 backend/Code.gs      Google Apps Script RSVP endpoint
 tools/build.cjs      inlines everything into design-a/ and design-b/
 tools/patterns.cjs   generates the geometry, arch, contour map and silhouettes
 tools/test.cjs       end-to-end check of both designs
 tools/shot.cjs       screenshot helper
-design-a/index.html  ready to publish
-design-b/index.html  ready to publish
+index.html           the chooser
+design/<id>/         four ready-to-publish invitations
 research/            sourced dossiers behind every fact on the sites
 ```
 

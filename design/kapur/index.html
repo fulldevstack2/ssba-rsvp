@@ -492,6 +492,13 @@ body{background-image:
   transform-origin:50% 0;
   transition:transform .6s linear}
 @media (prefers-reduced-motion:reduce){.cast span{transition:none}}
+/* on a phone the wall is only as wide as the hand, so the arch has to narrow
+   with it or it stops reading as a shadow and becomes a grey field */
+@media (max-width:48rem){
+  .cast span{width:min(46vw,20rem);
+    left:calc(-10% + var(--sun,0) * 68%);
+    background:linear-gradient(200deg,rgba(96,104,122,.20),rgba(96,104,122,.09) 60%,transparent)}
+}
 
 /* the sections are lit the same way: each ground carries the wall's own falloff */
 .bay--alt{background-image:linear-gradient(170deg,rgba(255,255,255,.7),transparent 60%)}
