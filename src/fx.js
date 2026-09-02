@@ -42,23 +42,21 @@
   FX.grain = function (el, opts) {
     if (!el) return;
     opts = opts || {};
-    var S = 128, alpha = opts.alpha || 26, tiles = [];
+    /* One tile, painted once. The shimmer is a CSS transform on the layer, not
+       a swapped image: re-decoding a data URI five times a second was the most
+       expensive thing on the page and it showed up as stutter during the
+       section animations. */
+    var S = 128, alpha = opts.alpha || 26;
     var c = document.createElement('canvas'); c.width = c.height = S;
     var cx = c.getContext('2d');
-    for (var f = 0; f < 4; f++) {
-      var d = cx.createImageData(S, S);
-      for (var i = 0; i < d.data.length; i += 4) {
-        var v = 255 * Math.random();
-        d.data[i] = d.data[i + 1] = d.data[i + 2] = v;
-        d.data[i + 3] = Math.random() * alpha;
-      }
-      cx.putImageData(d, 0, 0);
-      tiles.push(c.toDataURL('image/png'));
+    var d = cx.createImageData(S, S);
+    for (var i = 0; i < d.data.length; i += 4) {
+      var v = 255 * Math.random();
+      d.data[i] = d.data[i + 1] = d.data[i + 2] = v;
+      d.data[i + 3] = Math.random() * alpha;
     }
-    el.style.backgroundImage = 'url(' + tiles[0] + ')';
-    if (reduce) return;
-    var k = 0;
-    setInterval(function () { el.style.backgroundImage = 'url(' + tiles[k = (k + 1) % tiles.length] + ')'; }, 120);
+    cx.putImageData(d, 0, 0);
+    el.style.backgroundImage = 'url(' + c.toDataURL('image/png') + ')';
   };
 
   /* ------------------------------------------------------- caustic lightfield */
@@ -236,7 +234,7 @@
       }).join('');
     });
     var count = Math.round((opts.count || 26) * (innerWidth < 640 ? 0.55 : 1));
-    var w = 0, h = 0, dpr = Math.min(devicePixelRatio || 1, 2), run = true, ps = [];
+    var w = 0, h = 0, dpr = Math.min(devicePixelRatio || 1, 1.5), run = true, ps = [];
     function size() {
       w = canvas.width = Math.max(1, canvas.clientWidth * dpr);
       h = canvas.height = Math.max(1, canvas.clientHeight * dpr);
@@ -308,53 +306,33 @@
     document.dispatchEvent(new CustomEvent('ssba:ready'));
   };
 
-  /* ------------------------------------------------------------ scroll stage */
-  /* A tall track with a pinned, viewport-height frame. Scroll position is
-     published to CSS three ways so a section can transform in place instead of
-     scrolling past:
-
-       --p    0 -> 1 across the whole track
-       --cut  0 -> 1 within the current cut
-       data-cut  the current cut index, for anything that must switch discretely
-
-     Markup:  <section data-stage="6:4">   six viewport heights, four cuts
-                <div data-stage-pin> ... </div>
-              </section>                                                      */
-  FX.stage = function (track) {
-    var pin = $('[data-stage-pin]', track);
-    if (!pin) return;
-    var spec = (track.getAttribute('data-stage') || '4:1').split(':');
-    var vh = parseFloat(spec[0]) || 4, cuts = Math.max(1, parseInt(spec[1], 10) || 1);
-
-    if (reduce) {
-      // No pinning without motion: the frame simply sits in the flow, fully shown.
-      track.style.height = 'auto';
-      pin.style.position = 'static';
-      pin.style.height = 'auto';
-      pin.style.setProperty('--p', '1');
-      pin.style.setProperty('--cut', '1');
-      pin.setAttribute('data-cut', String(cuts - 1));
-      track.classList.add('stage-flat');
+  /* --------------------------------------------------------------- play once */
+  /* A section is a normal height and animates itself once, when you reach it.
+     No pinning and no scrubbing: the reader scrolls a little, the moment plays,
+     they scroll on. Everything is a plain CSS animation keyed off `.played`, so
+     a section that never enters the viewport simply sits in its finished state
+     for anyone with reduced motion or no JavaScript.                         */
+  FX.play = function () {
+    var els = $$('[data-play]');
+    if (!els.length) return;
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('played', 'instant'); });
       return;
     }
-
-    function layout() { track.style.height = (vh * 100) + 'vh'; }
-    layout();
-    addEventListener('resize', function () { layout(); measure(); }, { passive: true });
-
-    var frame = 0, last = -1;
-    function measure() {
-      frame = 0;
-      var r = track.getBoundingClientRect();
-      var travel = r.height - innerHeight;
-      var p = travel > 0 ? Math.min(1, Math.max(0, -r.top / travel)) : 0;
-      pin.style.setProperty('--p', p.toFixed(4));
-      var idx = Math.min(cuts - 1, Math.floor(p * cuts));
-      pin.style.setProperty('--cut', Math.min(1, Math.max(0, p * cuts - idx)).toFixed(4));
-      if (idx !== last) { last = idx; pin.setAttribute('data-cut', String(idx)); }
-    }
-    addEventListener('scroll', function () { if (!frame) frame = requestAnimationFrame(measure); }, { passive: true });
-    measure();
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('played');
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0.22, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function (el) {
+      // anything already on screen at load plays immediately rather than waiting
+      if (el.getBoundingClientRect().top < innerHeight * 0.9) { el.classList.add('played'); return; }
+      io.observe(el);
+    });
+    // safety net: never leave a section stuck unplayed
+    setTimeout(function () { $$('[data-play]:not(.played)').forEach(function (el) { el.classList.add('played'); }); }, 12000);
   };
 
   /* -------------------------------------------------------------- boot order */
@@ -363,7 +341,7 @@
     FX.grain($('[data-grain]'), { alpha: window.GRAIN_ALPHA || 26 });
     FX.light($('[data-light]'), window.LIGHT_OPTS);
     FX.scroll();
-    $$('[data-stage]').forEach(FX.stage);
+    FX.play();
     FX.spotlight($('[data-spot]'));
     FX.headerNames();
     FX.petals($('[data-petals]'), window.PETALS || {});

@@ -79,23 +79,23 @@
   <!-- ================================================== STAGE · THE SEAL === -->
   <!-- The khatam is not pasted on. It is constructed the way the pattern is
        really made, and the scroll is what draws it. -->
-  <section class="stage seal" data-stage="5:6" id="jemputan">
-    <div class="stage__pin" data-stage-pin>
+  <section class="act seal" data-play id="jemputan">
+    <div class="act__in">
       <div class="seal__art">{{khatam:640}}</div>
       <div class="seal__words">
         <p class="eyebrow" data-i18n="paper.kicker"></p>
         <p class="seal__ar {{arabicClass}}" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
         <p class="seal__lede" data-i18n="paper.lede"></p>
       </div>
-      <p class="seal__step" aria-hidden="true">
-        <i>Bulatan</i><i>Titik</i><i>Jejari</i><i>Segi empat</i><i>Bintang</i><i>Rosét</i>
-      </p>
     </div>
+    <p class="seal__step" aria-hidden="true">
+      <i>Bulatan</i><i>Titik</i><i>Jejari</i><i>Segi empat</i><i>Bintang</i><i>Rosét</i>
+    </p>
   </section>
 
   <!-- ================================================ STAGE · TWO FAMILIES = -->
-  <section class="stage families" data-stage="3.4:1">
-    <div class="stage__pin" data-stage-pin>
+  <section class="act families" data-play>
+    <div class="act__in">
       <p class="families__h" data-i18n="hostsBlock.title"></p>
       <div class="hosts" data-hosts></div>
       <p class="families__kids" data-i18n="hostsBlock.withChildren"></p>
@@ -105,12 +105,9 @@
   <!-- ================================================== STAGE · THE STORY == -->
   <!-- Four beats, one frame. The scroll cuts between them rather than scrolling
        them past, so each gets the whole screen to itself. -->
-  <section class="stage story" data-stage="9:4" id="kisah">
-    <div class="stage__pin" data-stage-pin>
-      <p class="story__h" data-i18n="story.title"></p>
-      <div class="story__beats" data-story-beats></div>
-      <p class="story__dots" aria-hidden="true"><i></i><i></i><i></i><i></i></p>
-    </div>
+  <section class="story" id="kisah">
+    <p class="story__h" data-play data-i18n="story.title"></p>
+    <div class="story__beats" data-story-beats></div>
   </section>
 
   <div class="quote">
@@ -124,17 +121,16 @@
 
   <!-- ================================================= STAGE · THE MAJLIS == -->
   <!-- Four gatherings dealt out one at a time, like cards laid on a table. -->
-  <section class="stage deal" data-stage="8:4" id="majlis">
-    <div class="stage__pin" data-stage-pin>
+  <section class="act deal" data-play id="majlis">
+    <div class="act__in">
       <p class="deal__h" data-i18n="events.title"></p>
       <div class="deal__cards" data-events></div>
-      <p class="deal__rail" aria-hidden="true"><i></i><i></i><i></i><i></i></p>
     </div>
   </section>
 
   <!-- ================================================== STAGE · THE COUNT == -->
-  <section class="stage count" data-stage="3.4:1">
-    <div class="stage__pin" data-stage-pin>
+  <section class="act count" data-play>
+    <div class="act__in">
       <p class="count__h" data-i18n="countdown.title"></p>
       <div class="cd" data-countdown></div>
       <p class="cd__done" data-countdown-done hidden data-i18n="countdown.done"></p>
@@ -288,8 +284,8 @@
   </section>
 
   <!-- ================================================= STAGE · THE VERSE == -->
-  <section class="stage verse" data-stage="3.6:1">
-    <div class="stage__pin" data-stage-pin>
+  <section class="act verse" data-play>
+    <div class="act__in">
       <p class="verse__h" data-i18n="gift.title"></p>
       <p class="verse__gift" data-i18n="gift.body"></p>
       <div class="blessing" data-sacred="verse" data-sacred-tr></div>
