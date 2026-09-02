@@ -103,3 +103,64 @@ function khatam(size = 1000) {
 module.exports.khatam = khatam;
 
 
+
+/* ---------------------------------------------------------------------------
+   MELUR — Jasminum sambac, the Malay bridal flower, strung into garlands for
+   the bride and scattered through bunga rampai. Drawn here as single-stroke
+   line art so the page can trace it the way a hand would draw it: stem first,
+   then leaves, then buds, then the blossoms opening last.
+
+   Authored in a 200 x 620 box. Every part is its own group so the trace can be
+   ordered, and every path is open (no fills) so stroke-dashoffset works.
+--------------------------------------------------------------------------- */
+function melur(w = 200, h = 620) {
+  const stem = [
+    'M100,620 C96,560 104,520 99,470 C95,424 106,388 100,340',
+    'M100,340 C95,296 104,258 99,214 C96,182 103,150 100,120'
+  ];
+  // a leaf is two mirrored arcs meeting at tip and base, with a midrib
+  const leaf = (x, y, len, lean, dir) => {
+    const tipX = x + dir * len * 0.62, tipY = y - len * 0.72;
+    const c1 = `${x + dir * len * 0.06},${y - len * 0.44}`;
+    const c2 = `${x + dir * len * 0.34},${y - len * 0.80}`;
+    const d1 = `${x + dir * len * 0.64},${y - len * 0.30}`;
+    const d2 = `${x + dir * len * 0.30},${y - len * 0.06}`;
+    return [
+      `M${x},${y} C${c1} ${c2} ${tipX},${tipY} C${d1} ${d2} ${x},${y}`,
+      `M${x},${y} Q${x + dir * len * 0.30},${y - len * 0.40} ${tipX},${tipY}`
+    ];
+  };
+  const leaves = [
+    ...leaf(99, 500, 96, 0, -1), ...leaf(101, 452, 84, 0, 1),
+    ...leaf(99, 384, 88, 0, -1), ...leaf(101, 330, 76, 0, 1),
+    ...leaf(100, 258, 70, 0, -1)
+  ];
+  // a blossom: five narrow petals round a small eye
+  const bloom = (cx, cy, r, turn) => {
+    const out = [`<circle cx="${f(cx)}" cy="${f(cy)}" r="${f(r * 0.17)}"/>`];
+    for (let k = 0; k < 5; k++) {
+      const a = turn + k * (Math.PI * 2 / 5);
+      const tx = cx + Math.cos(a) * r, ty = cy + Math.sin(a) * r;
+      const s = 0.42, wA = a + 0.55, wB = a - 0.55;
+      out.push(`<path d="M${f(cx)},${f(cy)} C${f(cx + Math.cos(wA) * r * s)},${f(cy + Math.sin(wA) * r * s)} ` +
+        `${f(tx - Math.cos(a) * r * 0.18 + Math.cos(wA) * r * 0.3)},${f(ty - Math.sin(a) * r * 0.18 + Math.sin(wA) * r * 0.3)} ${f(tx)},${f(ty)} ` +
+        `C${f(tx - Math.cos(a) * r * 0.18 + Math.cos(wB) * r * 0.3)},${f(ty - Math.sin(a) * r * 0.18 + Math.sin(wB) * r * 0.3)} ` +
+        `${f(cx + Math.cos(wB) * r * s)},${f(cy + Math.sin(wB) * r * s)} ${f(cx)},${f(cy)}"/>`);
+    }
+    return out;
+  };
+  const buds = [
+    'M100,214 C88,200 88,178 100,168 C112,178 112,200 100,214',
+    'M100,168 L100,150',
+    'M99,290 C89,278 89,260 99,252 C109,260 109,278 99,290'
+  ];
+  const blooms = [...bloom(100, 104, 40, -Math.PI / 2), ...bloom(62, 158, 26, -1.9), ...bloom(139, 176, 22, -1.2)];
+
+  const g = (cls, arr, isPath) => `<g class="${cls}">` +
+    arr.map(d => (isPath ? `<path d="${d}"/>` : d)).join('') + '</g>';
+  return `<svg class="melur" viewBox="0 0 ${w} ${h}" fill="none" stroke="currentColor" ` +
+    `stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">` +
+    g('ml-stem', stem, true) + g('ml-leaf', leaves, true) +
+    g('ml-bud', buds, true) + g('ml-bloom', blooms, false) + '</svg>';
+}
+module.exports.melur = melur;

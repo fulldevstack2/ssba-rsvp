@@ -156,7 +156,6 @@
       var tag = ev.invitationOnly ? t('labels.invitationOnly') : (ev.tbc ? t('labels.detailsToFollow') : '');
 
       return '<article class="card' + (ev.kind === 'primary' ? ' card--hero' : '') + (ev.tbc ? ' card--tbc' : '') + '" data-ev="' + ev.id + '" data-seq>' +
-        '<p class="card__no">' + String(i + 1).padStart(2, '0') + ' <span>/</span> ' + String(all.length).padStart(2, '0') + '</p>' +
         '<header><p class="card__eyebrow">' + esc(pick(ev.eyebrow)) + '</p>' +
         '<h3 class="card__title">' + esc(pick(ev.title)) + '</h3></header>' +
         '<div class="card__body">' +

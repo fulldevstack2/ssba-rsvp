@@ -11,6 +11,19 @@ const read = (p) => fs.readFileSync(path.join(root, p), 'utf8');
 
 function geometry(html) {
   html = html.replace(/\{\{khatam(?::(\d+))?\}\}/g, (_, sz) => P.khatam(sz ? +sz : undefined));
+  // {{flower:name}} -> the CC0 line-art SVG from assets/flowers, cleaned so it
+  // takes its colour from the page and every path can be traced.
+  html = html.replace(/\{\{flower:([a-z0-9-]+)(?::([-\d. ]+))?\}\}/g, (_, name, viewBox) => {
+    let d = read(`assets/flowers/${name}.svg`);
+    d = d.replace(/<\?xml[\s\S]*?\?>/g, '').replace(/<!DOCTYPE[\s\S]*?>/g, '');
+    d = d.replace(/<metadata>[\s\S]*?<\/metadata>/g, '');
+    d = d.replace(/<!--[\s\S]*?-->/g, '');
+    d = d.replace(/\s(width|height)="[^"]*"/g, '');          // let CSS size it
+    d = d.replace(/stroke="#[0-9a-fA-F]{3,6}"/g, 'stroke="currentColor"');
+    if (viewBox) d = d.replace(/viewBox="[^"]*"/, `viewBox="${viewBox.trim()}"`);
+    d = d.replace('<svg', '<svg class="bloomline" aria-hidden="true" focusable="false"');
+    return d.trim();
+  });
   html = html.replace(/\{\{arch(?::([\d.]+))?\}\}/g, (_, r) => P.archPath(r ? +r : undefined));
   return html;
 }
@@ -38,6 +51,37 @@ function runtime(c) {
   return Object.keys(r).map((k) => `window.${k} = ${JSON.stringify(r[k])};`).join('\n');
 }
 
+/* ----------------------------------------------------------- the photo slots */
+/* Drop a photograph in as assets/story/beat-1.jpg (…-2, -3, -4, in the order
+   the beats appear in Kisah Kami) and it is copied next to the built page and
+   wired to that beat automatically. Nothing to edit, no rebuild of anything
+   else. .jpg, .jpeg, .png and .webp are all recognised. With no file, the beat
+   keeps its drawn khatam plate. */
+const PHOTO_EXT = ['jpg', 'jpeg', 'png', 'webp'];
+function storyPhotos() {
+  const dir = path.join(root, 'assets/story');
+  const found = [];
+  if (!fs.existsSync(dir)) return found;
+  for (let i = 1; i <= 8; i++) {
+    for (const ext of PHOTO_EXT) {
+      const rel = `assets/story/beat-${i}.${ext}`;
+      if (fs.existsSync(path.join(root, rel))) { found.push({ n: i, rel }); break; }
+    }
+  }
+  return found;
+}
+function photoCss(photos) {
+  if (!photos.length) return '';
+  return '\n:root{' + photos.map((p) => `--img-${p.n}:url(${p.rel})`).join(';') + '}\n';
+}
+function copyPhotos(photos, destDir) {
+  for (const p of photos) {
+    const to = path.join(destDir, p.rel);
+    fs.mkdirSync(path.dirname(to), { recursive: true });
+    fs.copyFileSync(path.join(root, p.rel), to);
+  }
+}
+
 let built = 0;
 for (const c of concepts) {
   /* A concept owns its own markup and its own stylesheet. Nothing about how a
@@ -49,8 +93,9 @@ for (const c of concepts) {
   }
   const page = read(ownPage);
   const cssPath = ownCss;
+  const photos = storyPhotos();
   let html = page
-    .replace(/\{\{style\}\}/g, () => geometry(read('src/reset.css') + '\n' + read(cssPath)))
+    .replace(/\{\{style\}\}/g, () => geometry(read('src/reset.css') + '\n' + read(cssPath)) + photoCss(photos))
     .replace(/\{\{fonts\}\}/g, c.fonts)
     .replace(/\{\{themeColor\}\}/g, c.themeColor)
     .replace(/\{\{arabicClass\}\}/g, c.arabicClass)
@@ -65,7 +110,9 @@ for (const c of concepts) {
   const out = path.join(root, 'design', c.id, 'index.html');
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, html);
-  console.log(`built design/${c.id}/index.html  ${(html.length / 1024).toFixed(1)} kB`);
+  copyPhotos(photos, path.dirname(out));
+  console.log(`built design/${c.id}/index.html  ${(html.length / 1024).toFixed(1)} kB` +
+    (photos.length ? `  + ${photos.length} photo${photos.length > 1 ? 's' : ''}` : ''));
   built++;
 }
 

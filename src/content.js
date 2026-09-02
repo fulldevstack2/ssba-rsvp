@@ -186,33 +186,31 @@ window.CONTENT = {
       lead: 'Bermula dengan satu kerjasama yang sederhana, berakhir dengan satu janji seumur hidup.',
       beats: [
         { k: 'Perkenalan', y: '2024',
-          t: 'Satu projek, dua hati',
+          t: 'Dua hati, satu pertemuan',
           b: 'Mereka bertemu kerana kerja — satu kempen raya yang dilakukan bersama demi mengumpul dana untuk orang ramai. Persahabatan itu tumbuh perlahan-lahan, tanpa disedari sesiapa, termasuk mereka berdua.' },
         { k: 'Lamaran', y: 'Januari 2026',
           t: 'Di puncak Gunung Kinabalu',
-          b: 'Selepas mendaki sepanjang malam, dalam hujan lebat dan kesejukan puncak, dia melutut dan bertanya. Bella berkata "ya" dalam beberapa saat sahaja.',
-          q: '“Justru ketidaksempurnaan inilah yang menjadikan saat ini lebih bermakna. Sudikah kamu menjadi isteriku?”',
-          qa: 'Syed Saddiq, di puncak Kinabalu' },
+          b: 'Selepas mendaki sepanjang malam, dalam hujan lebat dan kesejukan puncak, dia melutut dan bertanya. Bella berkata "ya" dalam beberapa saat sahaja.' },
         { k: 'Pertunangan', y: '28 Mac 2026',
           t: 'Bertunang di bulan Syawal',
           b: 'Dua keluarga bertemu buat kali pertama sebagai satu. Cincin disarungkan oleh bonda pengantin lelaki, dan hantaran dibawa dengan tema masa hadapan — termasuk simpanan pendidikan buat Ayden dan Ara.' },
         { k: 'Pernikahan', y: '10 Oktober 2026',
-          t: 'Satu permulaan berempat',
+          t: 'Satu permulaan kebahagiaan',
           b: 'Tarikh dipilih kerana susunan nombornya yang cantik, dan kerana bulan kesepuluh menandakan permulaan hidup baharu bagi mereka berdua — bersama Ayden dan Ara.' }
       ],
       pull: {
-        q: '“Saya tidak mencari yang sempurna. Cukuplah seseorang yang setia, sampai bila-bila.”',
-        a: 'Bella Astillah',
-        q2: '“Saya tak berani menjanjikan hidup tanpa susah, tetapi saya berjanji saya takkan mudah menyerah pada kita, selamanya.”',
-        a2: 'Syed Saddiq'
+        q: 'Dua keluarga, satu doa, dan satu hari yang telah lama dinanti.',
+        a: 'Sabtu, 10 Oktober 2026',
+        q2: 'Sepuluh bulan kesepuluh — permulaan sebuah rumah tangga.',
+        a2: '10 . 10 . 2026'
       }
     },
     family: {
       title: 'Berempat',
       headline: 'Sebuah keluarga yang sudah pun terbentuk',
       body: 'Ayden dan Ara telah pun menjadi sebahagian daripada cerita ini sejak awal lagi. Majlis ini bukan sahaja menyatukan dua orang, tetapi meraikan sebuah keluarga yang sudah pun terbentuk.',
-      quote: '“Saya mencintai Bella bukan walaupun dia mempunyai anak-anak, tetapi kerana mereka.”',
-      by: 'Syed Saddiq'
+      quote: 'Sebuah keluarga yang telah lama terbentuk, kini diikat dengan sebuah nikah.',
+      by: 'Berempat'
     },
     events: { title: 'Majlis Kami', lead: 'Empat majlis, satu bulan, tiga kota yang bermakna buat kami.' },
     scheduleBlock: {
@@ -353,33 +351,31 @@ window.CONTENT = {
       lead: 'It began with a simple collaboration. It ends with a promise for life.',
       beats: [
         { k: 'How it began', y: '2024',
-          t: 'One project, two hearts',
+          t: 'Two hearts, one meeting',
           b: 'They met through work — a festive campaign they took on together to raise funds for people who needed it. The friendship grew quietly, unnoticed by everyone, including the two of them.' },
         { k: 'The proposal', y: 'January 2026',
           t: 'At the summit of Mount Kinabalu',
-          b: 'After climbing through the night, in heavy rain and the cold of the summit, he knelt and asked. Bella said yes within seconds.',
-          q: '“It is the imperfections which make this matter even more. Will you marry me?”',
-          qa: 'Syed Saddiq, at the summit of Kinabalu' },
+          b: 'After climbing through the night, in heavy rain and the cold of the summit, he knelt and asked. Bella said yes within seconds.' },
         { k: 'The engagement', y: '28 March 2026',
           t: 'Betrothed in the month of Syawal',
           b: 'Two families met for the first time as one. The ring was placed by the groom’s mother, and the gift trays were themed around the future — including education savings for Ayden and Ara.' },
         { k: 'The wedding', y: '10 October 2026',
-          t: 'A beginning, all four of us',
+          t: 'A beginning of happiness',
           b: 'The date was chosen for the beauty of its numbers, and because the tenth month marks the start of a new life for them both — together with Ayden and Ara.' }
       ],
       pull: {
-        q: '“I am not looking for someone perfect. Someone faithful, for as long as forever, is enough.”',
-        a: 'Bella Astillah',
-        q2: '“I cannot promise a life without hardship, but I promise I will never give up on us. Not ever.”',
-        a2: 'Syed Saddiq'
+        q: 'Two families, one prayer, and a day long awaited.',
+        a: 'Saturday, 10 October 2026',
+        q2: 'The tenth day of the tenth month — the beginning of a household.',
+        a2: '10 . 10 . 2026'
       }
     },
     family: {
       title: 'All Four of Us',
       headline: 'A family that had already quietly formed',
       body: 'Ayden and Ara have been part of this story from the very beginning. This day does not only join two people — it celebrates a family that has already quietly formed.',
-      quote: '“I do not love Bella in spite of her children, but because of them.”',
-      by: 'Syed Saddiq'
+      quote: 'A family that formed long ago, now bound by a marriage.',
+      by: 'Berempat'
     },
     events: { title: 'The Celebrations', lead: 'Four gatherings, one month, three cities that mean everything to us.' },
     scheduleBlock: {

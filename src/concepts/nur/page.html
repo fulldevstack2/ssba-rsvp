@@ -79,20 +79,28 @@
   <!-- ================================================== STAGE · THE SEAL === -->
   <!-- The khatam is not pasted on. It is constructed the way the pattern is
        really made, and the scroll is what draws it. -->
-  <section class="act seal" data-play id="jemputan">
-    <div class="amb amb--bloom" aria-hidden="true"></div>
-    <div class="act__in">
-      <div class="seal__art">{{khatam:640}}</div>
-      <div class="seal__words">
-        <p class="seal__ar {{arabicClass}}" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-        <p class="seal__lede" data-i18n="paper.lede"></p>
-      </div>
+  <!-- ============================================ THE INVITATION, READ ==== -->
+  <!-- A sheet of paper held up to a window. No ornament: the light does the
+       work, and the words are read down the page as it falls across them. -->
+  <section class="leaf rv rv-drift" data-play id="jemputan">
+    <div class="leaf__room" aria-hidden="true"></div>
+    <canvas class="particles" data-field="mote" aria-hidden="true"></canvas>
+    <div class="leaf__sheet">
+      <span class="leaf__rake" aria-hidden="true"></span>
+      <!-- Bunga ros, traced into the corner of the sheet as it is read.
+           CC0 line art — see assets/CREDITS.md -->
+      <div class="leaf__bloom" data-trace aria-hidden="true">{{flower:oc-184471-rose:29 165 298 347}}</div>
+      <p class="leaf__ar {{arabicClass}}" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
+      <span class="leaf__rule" aria-hidden="true"></span>
+      <p class="leaf__lede" data-i18n="paper.lede"></p>
+      <span class="leaf__beam" aria-hidden="true"></span>
     </div>
   </section>
 
   <!-- ================================================ STAGE · TWO FAMILIES = -->
-  <section class="act families" data-play>
+  <section class="act families rv rv-iris" data-play>
     <div class="amb amb--beras" aria-hidden="true"></div>
+    <canvas class="particles" data-field="grain" aria-hidden="true"></canvas>
     <div class="act__in">
       <p class="families__h" data-i18n="hostsBlock.title"></p>
       <div class="hosts" data-hosts></div>
@@ -103,14 +111,16 @@
   <!-- ================================================== STAGE · THE STORY == -->
   <!-- Four beats, one frame. The scroll cuts between them rather than scrolling
        them past, so each gets the whole screen to itself. -->
-  <section class="spread" id="kisah" data-play>
+  <section class="spread rv rv-wipe" id="kisah" data-play>
     <div class="amb amb--silk" aria-hidden="true"></div>
+    <canvas class="particles" data-field="bloom" aria-hidden="true"></canvas>
     <p class="spread__rail" aria-hidden="true"><span data-i18n="story.title"></span></p>
     <div class="spread__beats" data-story-beats></div>
   </section>
 
   <div class="quote" data-play>
     <div class="amb amb--silk" aria-hidden="true"></div>
+    <canvas class="particles" data-field="bloom" aria-hidden="true"></canvas>
     <div class="shell">
       <figure>
         <q class="foil" data-i18n="story.pull.q"></q>
@@ -121,8 +131,9 @@
 
   <!-- ================================================= STAGE · THE MAJLIS == -->
   <!-- Four gatherings dealt out one at a time, like cards laid on a table. -->
-  <section class="act deal" data-play id="majlis">
+  <section class="act deal rv rv-unfurl" data-play id="majlis">
     <div class="amb amb--songket" aria-hidden="true"></div>
+    <canvas class="particles" data-petals data-count="11" data-spin="0.35" data-speed="0.55" aria-hidden="true"></canvas>
     <div class="act__in">
       <p class="deal__h" data-i18n="events.title"></p>
       <div class="deal__cards" data-events></div>
@@ -130,8 +141,9 @@
   </section>
 
   <!-- ================================================== STAGE · THE COUNT == -->
-  <section class="band count" data-play>
+  <section class="band count rv rv-wipe" data-play>
     <div class="amb amb--bloom" aria-hidden="true"></div>
+    <canvas class="particles" data-field="orb" aria-hidden="true"></canvas>
     <p class="band__lead" data-i18n="countdown.title"></p>
     <div class="cd" data-countdown></div>
     <p class="band__foot"><span data-i18n="hero.day"></span> &middot; 10 Oktober 2026 &middot; 29 Rabiulakhir 1448H</p>
@@ -139,11 +151,11 @@
   </section>
 
   <!-- ======================================================== ATUR CARA ==== -->
-  <section class="split" id="atur" data-play>
+  <section class="split rv rv-drift" id="atur" data-play>
     <div class="amb amb--silk" aria-hidden="true"></div>
+    <canvas class="particles" data-field="bloom" aria-hidden="true"></canvas>
     <div class="shell split__grid">
       <aside class="split__aside">
-        <p class="split__no">III</p>
         <h2 class="split__h" data-i18n="scheduleBlock.title"></h2>
         <p class="split__note" data-i18n="scheduleBlock.lead"></p>
         <p class="split__flag" data-i18n="labels.provisional"></p>
@@ -156,11 +168,11 @@
   </section>
 
   <!-- ========================================================== PANDUAN ==== -->
-  <section class="split split--alt" id="panduan" data-play>
+  <section class="split split--alt rv rv-drift" id="panduan" data-play>
     <div class="amb amb--songket" aria-hidden="true"></div>
+    <canvas class="particles" data-petals data-count="11" data-spin="0.35" data-speed="0.55" aria-hidden="true"></canvas>
     <div class="shell split__grid">
       <aside class="split__aside">
-        <p class="split__no">IV</p>
         <h2 class="split__h" data-i18n="travel.title"></h2>
         <p class="split__note" data-i18n="travel.lead"></p>
       </aside>
@@ -175,8 +187,9 @@
   </section>
 
   <!-- ============================================================= RSVP ==== -->
-  <section class="bay rsvp" id="rsvp" data-play>
+  <section class="bay rsvp rv rv-drift" id="rsvp" data-play>
     <div class="amb amb--silk" aria-hidden="true"></div>
+    <canvas class="particles" data-field="bloom" aria-hidden="true"></canvas>
     <div class="shell">
       <div class="head">
         <p class="eyebrow" data-i18n="nav.rsvp"></p>
@@ -274,8 +287,9 @@
   </section>
 
   <!-- =========================================================== UCAPAN ==== -->
-  <section class="bay bay--alt" id="ucapan" data-play>
+  <section class="bay bay--alt rv rv-unfurl" id="ucapan" data-play>
     <div class="amb amb--beras" aria-hidden="true"></div>
+    <canvas class="particles" data-field="grain" aria-hidden="true"></canvas>
     <div class="shell">
       <div class="head">
         <p class="eyebrow" data-i18n="nav.wishes"></p>
@@ -294,8 +308,9 @@
   </section>
 
   <!-- ================================================= STAGE · THE VERSE == -->
-  <section class="act verse" data-play>
+  <section class="act verse rv rv-iris" data-play>
     <div class="amb amb--silk" aria-hidden="true"></div>
+    <canvas class="particles" data-field="bloom" aria-hidden="true"></canvas>
     <div class="act__in">
       <p class="verse__h" data-i18n="gift.title"></p>
       <p class="verse__gift" data-i18n="gift.body"></p>

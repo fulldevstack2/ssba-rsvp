@@ -7,9 +7,21 @@ diplomatic portrait of the groom, in a suit, and nothing at all of the bride.
 Everything else online is someone's copyright, and an unlicensed image on an
 invitation that circulates on WhatsApp is a risk not worth taking.
 
-Drop official images in via the `--img-1` through `--img-4` custom properties
-described in the README. The build inlines anything in this folder referenced as
-`{{asset:filename}}`, so each design stays a single droppable file.
+Verified again on 2 September 2026: Commons holds exactly two free files of the
+groom — `File:Syed Saddiq (cropped).jpg` and a US-embassy photograph of a
+diplomatic meeting — both political portraits, and **nothing whatsoever of the
+bride**. There is no free cutout of either of them in traditional dress.
+
+Drop the couple's own photographs into `assets/story/` as `beat-1.jpg` …
+`beat-4.jpg` and rebuild; see `assets/story/README.md`. A beat with no file
+keeps its drawn khatam plate, so the slots can be filled one at a time.
+
+## Line art
+
+* `assets/flowers/oc-184471-rose.svg` — bunga ros, traced into the corner of the
+  invitation sheet. Openclipart, **CC0 1.0 / public domain**, item 184471. Used
+  cropped to the viewBox `29 165 298 347`; strokes recoloured to `currentColor`
+  at build time. No attribution required; recorded here for provenance.
 
 ## A note on the bride's tradition, recorded so it is not got wrong later
 

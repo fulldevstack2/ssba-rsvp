@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: CorelDRAW X5 -->
+<svg
+    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:ns1="http://sozi.baierouge.fr"
+    xmlns:cc="http://web.resource.org/cc/"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    style="fill-rule:evenodd;text-rendering:geometricPrecision;image-rendering:optimizeQuality;clip-rule:evenodd;shape-rendering:geometricPrecision"
+    xml:space="preserve"
+    viewBox="0 0 3648 4674"
+  >
+ <defs
+    >
+  <style
+        type="text/css"
+      >
+    .str2 {stroke:black;stroke-width:7.62}
+    .str0 {stroke:black;stroke-width:141.11}
+    .str3 {stroke:black;stroke-width:141.11;stroke-linecap:round}
+    .str1 {stroke:black;stroke-width:141.11;stroke-linecap:round;stroke-linejoin:round}
+    .fil0 {fill:none}
+    .fil2 {fill:black}
+    .fil1 {fill:white}
+  </style
+    >
+ </defs
+  >
+ <g
+      id="Layer_x0020_1"
+    >
+  <g
+        id="_381693176"
+      >
+   <path
+          class="fil0 str0"
+          d="m1692 1404v-49c209 389 115 1658 0 2098-104 398-113 172-327-16-248-219-708-697-1119-792-116-27 265 587 302 645 393 608 993 792 1070 1151 76 357 332 45 465-171 207-337 1485-1243 1494-1323 15-127-885 206-988 261l-482 261c-327 177-233 445-229-212l8-1380c4-646-286-743-196-474z"
+      />
+   <path
+          class="fil1 str1"
+          d="m192 736c0 154 763 260 363 260-927 0-318 323 129 323 399 0 1214-133 503 103-163 54-1117 436-439 413 72-2 140-46 258-90-23 23-142 73-142 297 0 276 986-590 1033-684 2-4 38 127 65 181 89 179 563 797 723 478 108-217-464-513-52-348 153 61 658 270 658-39 0-274-696-428-819-468 1083 0 1120-429-74-229 658-1242-411-278-411-110 0 1 95-905-168-729-151 101-228 512-232 505-132-198-442-479-621-297-131 134 111 389 556 631 49 27-1230-525-1331-195z"
+      />
+   <ellipse
+          cy="1106"
+          cx="1894"
+          rx="450"
+          class="fil2 str2"
+          ry="231"
+      />
+   <line
+          y1="3651"
+          x2="1562"
+          x1="1624"
+          y2="3959"
+          class="fil0 str3"
+      />
+  </g
+    >
+ </g
+  >
+<metadata
+    ><rdf:RDF
+      ><cc:Work
+        ><dc:format
+          >image/svg+xml</dc:format
+        ><dc:type
+            rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+        /><cc:license
+            rdf:resource="http://creativecommons.org/licenses/publicdomain/"
+        /><dc:publisher
+          ><cc:Agent
+              rdf:about="http://openclipart.org/"
+            ><dc:title
+              >Openclipart</dc:title
+            ></cc:Agent
+          ></dc:publisher
+        ></cc:Work
+      ><cc:License
+          rdf:about="http://creativecommons.org/licenses/publicdomain/"
+        ><cc:permits
+            rdf:resource="http://creativecommons.org/ns#Reproduction"
+        /><cc:permits
+            rdf:resource="http://creativecommons.org/ns#Distribution"
+        /><cc:permits
+            rdf:resource="http://creativecommons.org/ns#DerivativeWorks"
+        /></cc:License
+      ></rdf:RDF
+    ></metadata
+  ></svg
+>
