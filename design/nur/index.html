@@ -643,13 +643,8 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
   .deal__cards{grid-template-columns:repeat(3,1fr)}
   .deal .card--hero{grid-column:1/-1}
 }
-.deal .card{opacity:0;transform:translateY(2.2rem) rotate(-.8deg);will-change:opacity,transform;
-  box-shadow:0 26px 60px rgba(25,20,16,.08);text-align:left}
-.deal .card:nth-child(even){transform:translateY(2.2rem) rotate(.8deg)}
-.deal.played .card:nth-child(1){animation:settle .85s var(--ez) .05s forwards}
-.deal.played .card:nth-child(2){animation:settle .85s var(--ez) .20s forwards}
-.deal.played .card:nth-child(3){animation:settle .85s var(--ez) .33s forwards}
-.deal.played .card:nth-child(4){animation:settle .85s var(--ez) .46s forwards}
+.deal .card{will-change:opacity,transform;text-align:left}
+/* the cards arrive through the shared [data-seq] grammar */
 
 /* ----------------------------------------------------- V · the count ------- */
 .count__h{font-family:var(--util);font-weight:400;font-size:.66rem;letter-spacing:.3em;
@@ -896,6 +891,193 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
   .faq div{height:auto;opacity:1;filter:none}
   .faq:not([open]) div{display:none}
 }
+
+/* =============================================================================
+   THE SECTIONS, DESIGNED
+   -----------------------------------------------------------------------------
+   Everything below replaces a generic arrangement with a composition. Each
+   section is laid out for what it actually is: a lineage, a story spread, one
+   confirmed ceremony against three still to come, a printed guide, a reply
+   card, a wall of notes, a benediction.
+   ============================================================================= */
+
+/* ---------------------------------------------- II · the lineage plate ----- */
+/* Two families set facing one another across a rule, the way a marriage is
+   recorded on an engraved plate, with a seal struck at the join. */
+.families .act__in{max-width:66rem}
+.families__h{margin-bottom:clamp(2.6rem,7vw,4.2rem);letter-spacing:.34em}
+/* both labels sit on the same line, and each side keeps its own measure so a
+   long name breaks where it should rather than orphaning a syllable */
+.families .hosts{grid-template-columns:1fr auto 1fr;gap:clamp(1.5rem,5vw,3.5rem);align-items:start}
+.families .hosts__side{display:grid;gap:1rem}
+.families .hosts__side:first-child{text-align:right;justify-items:end}
+.families .hosts__side:first-child .hosts__names li{margin-inline-start:auto}
+.families .hosts__side:last-child{text-align:left;justify-items:start}
+.families .hosts__side:last-child .hosts__names li{margin-inline-end:auto}
+.families .hosts__label{font-size:.58rem;letter-spacing:.3em;color:var(--mute)}
+.families .hosts__names{gap:.7rem}
+.families .hosts__names li{font-family:var(--body);font-size:clamp(1.06rem,2.4vw,1.34rem);
+  line-height:1.45;color:var(--ink);text-wrap:balance;max-width:20ch}
+/* the seal at the join, struck rather than drawn */
+.families .hosts__div{display:block;position:relative;width:1px;align-self:stretch;min-height:8rem;margin-top:.4rem;
+  background:linear-gradient(transparent,var(--line) 22%,var(--line) 78%,transparent)}
+.families .hosts__div::before{content:"";position:absolute;top:50%;left:50%;width:2.4rem;height:2.4rem;
+  margin:-1.2rem 0 0 -1.2rem;border:1px solid var(--accent);transform:rotate(45deg) scale(0);
+  background:var(--bg)}
+.families .hosts__div::after{content:"";position:absolute;top:50%;left:50%;width:.85rem;height:.85rem;
+  margin:-.425rem 0 0 -.425rem;border:1px solid var(--accent-ink);transform:rotate(45deg) scale(0)}
+.families.played .hosts__div::before{animation:pop .7s var(--ez) .55s forwards}
+.families.played .hosts__div::after{animation:pop .6s var(--ez) .78s forwards}
+@media (max-width:46rem){
+  .families .hosts{grid-template-columns:1fr;gap:2.4rem}
+  .families .hosts__side:first-child,.families .hosts__side:last-child{text-align:center}
+  .families .hosts__div{width:100%;height:1px;min-height:0;
+    background:linear-gradient(90deg,transparent,var(--line) 25%,var(--line) 75%,transparent)}
+}
+
+/* ------------------------------------------------- III · the story spread -- */
+/* Each beat is a spread, not a row: the year is set enormous and faint behind
+   the title, and the plate overlaps the column so the two share an edge. */
+.story__beats{gap:clamp(6rem,16vw,13rem)}
+.story .beat{grid-template-columns:1fr;gap:clamp(2rem,5vw,3.2rem);position:relative}
+@media (min-width:58rem){
+  .story .beat{grid-template-columns:1.05fr .95fr;gap:clamp(3rem,7vw,6rem);align-items:center}
+  .story .beat:nth-child(even) .beat__art{order:2}
+  .story .beat:nth-child(odd) .beat__body{padding-inline-end:clamp(0rem,3vw,3rem)}
+  .story .beat:nth-child(even) .beat__body{padding-inline-start:clamp(0rem,3vw,3rem)}
+}
+.story .beat__body{position:relative;isolation:isolate}
+.story .beat__kick{gap:1.1rem;align-items:center}
+.story .beat__kick em{font-size:.6rem;letter-spacing:.3em}
+/* the year, set as a watermark behind its own beat */
+.story .beat__kick i{position:absolute;top:-.35em;inset-inline-start:-.06em;z-index:-1;
+  font-family:var(--display);font-size:clamp(5rem,13vw,10rem);line-height:1;letter-spacing:-.02em;
+  color:color-mix(in srgb,var(--accent) 12%,transparent);pointer-events:none;white-space:nowrap}
+.story .beat__title{font-size:clamp(2rem,5.4vw,3.4rem);line-height:1.02;margin-top:.9rem}
+.story .beat__text{max-width:40ch;color:var(--ink-2)}
+.story .beat__quote{margin-top:1.8rem;padding-top:1.6rem;position:relative}
+.story .beat__quote::before{content:"";position:absolute;top:0;left:0;width:3.2rem;height:1px;background:var(--accent)}
+.story .beat__quote p{font-size:clamp(1.2rem,3.2vw,1.55rem)}
+.story .plate{max-height:min(62svh,34rem)}
+
+/* ---------------------------------------------------- the quotation band --- */
+.quote{padding-block:clamp(6rem,16vw,11rem)}
+.quote figure{position:relative;max-width:56rem;margin-inline:auto;padding-inline:clamp(2rem,7vw,5rem)}
+.quote figure::before,.quote figure::after{position:absolute;font-family:var(--display);
+  font-size:clamp(4rem,11vw,8rem);line-height:1;color:color-mix(in srgb,var(--accent) 28%,transparent)}
+.quote figure::before{content:"\201C";top:-.18em;inset-inline-start:0}
+.quote figure::after{content:"\201D";bottom:-.42em;inset-inline-end:0}
+.quote q{max-width:22ch;font-size:clamp(1.6rem,4.6vw,3.2rem)}
+.quote cite{position:relative;padding-top:1.5rem}
+.quote cite::before{content:"";position:absolute;top:0;left:50%;translate:-50% 0;width:2.6rem;height:1px;background:var(--accent)}
+
+/* --------------------------------- IV · one ceremony, three still to come -- */
+/* The akad is settled, so it is given the whole width and an arch. The three
+   receptions are not, so they are an index of what is coming rather than
+   cards pretending to hold the same amount of information. */
+.deal__cards{grid-template-columns:1fr;gap:0}
+.deal .card--hero{grid-column:1/-1;width:100%;background:linear-gradient(168deg,var(--surface),var(--bg-2));
+  border:1px solid var(--line-soft);padding:clamp(3.6rem,9vw,5.5rem) clamp(1.8rem,5vw,3.4rem) clamp(2.2rem,5vw,3rem);
+  text-align:center;align-items:center;position:relative;overflow:hidden}
+.deal .card--hero::before{content:"";position:absolute;top:0;left:50%;translate:-50% 0;
+  width:clamp(120px,26vw,190px);height:clamp(162px,35vw,257px);
+  background:linear-gradient(color-mix(in srgb,var(--accent) 20%,transparent),transparent);
+  clip-path:url(#arch-clip);-webkit-clip-path:url(#arch-clip)}
+.deal .card--hero .card__no{letter-spacing:.3em}
+.deal .card--hero .card__title{font-size:clamp(2.2rem,6.4vw,4rem);margin-top:.5rem}
+.deal .card--hero .card__body{align-items:center}
+.deal .card--hero .card__meta{grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));
+  gap:1.6rem 2.6rem;text-align:start;width:100%;max-width:52rem;margin-top:.6rem}
+.deal .card--hero .card__note{max-width:44ch;text-align:center}
+.deal .card--hero .card__acts{justify-content:center}
+
+.deal .card--tbc{background:transparent;border:0;border-top:1px solid var(--line-soft);
+  border-radius:0;padding:clamp(1.5rem,3.6vw,2.2rem) 0;display:grid;gap:.5rem 2rem;
+  grid-template-columns:1fr;box-shadow:none;transform:none;text-align:left;
+  transition:background-color .45s var(--ez),padding-inline .45s var(--ez)}
+.deal .card--tbc:first-of-type{margin-top:clamp(3rem,7vw,4.5rem)}
+.deal .card--tbc:last-child{border-bottom:1px solid var(--line-soft)}
+@media (min-width:52rem){
+  .deal .card--tbc{grid-template-columns:4.5rem minmax(0,1fr) auto;align-items:baseline}
+  .deal .card--tbc .card__body{grid-column:2/-1;display:grid;gap:.55rem}
+}
+.deal .card--tbc:hover{background:color-mix(in srgb,var(--accent) 5%,transparent);padding-inline:1.2rem}
+.deal .card--tbc .card__no{color:var(--mute)}
+.deal .card--tbc header{gap:.25rem}
+.deal .card--tbc .card__title{font-size:clamp(1.5rem,3.6vw,2.2rem)}
+.deal .card--tbc .card__tag{margin-top:0;border:0;padding:0;color:var(--accent-ink);
+  font-size:.58rem;letter-spacing:.24em}
+.deal .card--tbc .card__meta{grid-template-columns:none;gap:.2rem;margin:0}
+.deal .card--tbc .card__meta dt{display:none}
+.deal .card--tbc .card__meta dd{font-size:.98rem;color:var(--mute)}
+.deal .card--tbc .card__note{font-size:.96rem;max-width:52ch;margin-top:.35rem}
+/* the settle animation is per-row here, not a deal of cards */
+.deal .card{opacity:0;transform:translateY(1.6rem);box-shadow:none}
+.deal .card:nth-child(even){transform:translateY(1.6rem)}
+
+/* ------------------------------------------------------- V · the count ----- */
+.count .act__in{max-width:70rem}
+.count__h{margin-bottom:clamp(2.4rem,7vw,3.8rem);letter-spacing:.34em}
+.count .cd{gap:0;align-items:stretch;justify-content:center;flex-wrap:nowrap;width:100%}
+.count .cd__unit{flex:1 1 0;gap:.9rem;padding-inline:clamp(.4rem,2vw,1.5rem);position:relative}
+.count .cd__unit+.cd__unit::before{content:"";position:absolute;inset-block:.4rem;inset-inline-start:0;
+  width:1px;background:linear-gradient(transparent,var(--line),transparent)}
+.count .cd__num{font-size:clamp(2.4rem,10.5vw,7.5rem);line-height:.92}
+.count .cd__label{font-size:.55rem;letter-spacing:.26em}
+.count__foot{margin-top:clamp(2.6rem,7vw,4rem);font-family:var(--body);font-style:italic;
+  color:var(--ink-2);font-size:clamp(1.02rem,2.8vw,1.2rem)}
+
+/* ---------------------------------------------- the guide, as a printed one - */
+.tips{counter-reset:tip;gap:0;grid-template-columns:1fr}
+@media (min-width:52rem){.tips{grid-template-columns:1fr 1fr;column-gap:clamp(3rem,7vw,6rem)}}
+.tip{counter-increment:tip;background:transparent;box-shadow:none;
+  padding:1.7rem 0 1.8rem 4.2rem;border-top:1px solid var(--line-soft)}
+.tip:hover{transform:none;box-shadow:none}
+.tip::after{content:counter(tip,decimal-leading-zero);position:absolute;inset-inline-start:0;top:1.65rem;
+  font-family:var(--display);font-size:1.35rem;letter-spacing:.06em;
+  color:color-mix(in srgb,var(--accent) 55%,transparent)}
+.tip h3{font-size:.68rem;letter-spacing:.26em;color:var(--ink)}
+.tip p{color:var(--ink-2);max-width:42ch}
+
+/* ------------------------------------------------------ the reply card ----- */
+.rsvp__card{padding-top:clamp(3.4rem,8vw,5rem);border-radius:0}
+.rsvp__card::after{content:"";position:absolute;top:0;left:50%;translate:-50% 0;z-index:-1;
+  width:clamp(96px,20vw,140px);height:clamp(130px,27vw,190px);
+  background:linear-gradient(color-mix(in srgb,var(--accent) 22%,transparent),transparent);
+  clip-path:url(#arch-clip);-webkit-clip-path:url(#arch-clip)}
+.rsvp__dl{position:relative;display:inline-block;left:50%;translate:-50% 0;
+  border:1px solid var(--line);padding:.5rem 1.1rem;letter-spacing:.2em}
+
+/* ------------------------------------------------- the wall of good wishes - */
+.wishes{gap:clamp(1rem,2.4vw,1.5rem)}
+.wish{background:var(--surface);border:1px solid var(--line-soft);border-radius:0;
+  padding:1.9rem 1.7rem 1.6rem;box-shadow:0 12px 30px rgba(25,20,16,.05)}
+.wish:nth-child(3n+1){transform:rotate(-.5deg)}
+.wish:nth-child(3n+2){transform:rotate(.4deg)}
+.wish:nth-child(3n+3){transform:rotate(-.25deg)}
+.wish:hover{transform:translateY(-4px) rotate(0deg);box-shadow:0 24px 54px rgba(25,20,16,.09)}
+.wish__text{padding-inline-start:0;font-size:1.08rem}
+.wish__text::before{position:static;display:block;margin-bottom:-.6rem;font-size:2.4rem;line-height:1}
+.wish__by{border-top:1px solid var(--line-soft);padding-top:.9rem}
+
+/* --------------------------------------------------- VI · the benediction -- */
+.verse .act__in{max-width:52rem}
+.verse__h{letter-spacing:.34em}
+.verse .blessing{gap:1.6rem}
+.verse .blessing .sacred__ar{font-size:clamp(1.5rem,5vw,2.5rem);line-height:2.5;color:var(--ink)}
+.verse .blessing .sacred__meaning{max-width:44ch}
+.verse .blessing .sacred__ref{position:relative;padding-top:1.4rem}
+.verse .blessing .sacred__ref::before{content:"";position:absolute;top:0;left:50%;translate:-50% 0;
+  width:2.6rem;height:1px;background:var(--accent)}
+
+/* ------------------------------------------------------------ the colophon - */
+.foot{padding-block:clamp(6rem,15vw,10rem) 3.6rem}
+.foot__thanks{font-size:clamp(1.04rem,2.8vw,1.2rem)}
+.foot__names{margin-top:2.8rem;letter-spacing:.05em;text-transform:uppercase;
+  font-size:clamp(1.3rem,4.6vw,2.6rem);line-height:1.3}
+.foot__hash{margin-top:1.6rem;position:relative;display:inline-block;padding-top:1.4rem}
+.foot__hash::before{content:"";position:absolute;top:0;left:50%;translate:-50% 0;
+  width:2.4rem;height:1px;background:color-mix(in srgb,var(--accent) 60%,transparent)}
 </style>
 </head>
 <body>
@@ -1202,7 +1384,7 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 <script>
 window.CONFIG = {"design":"nur","countdownTo":"2026-10-10T10:00:00+08:00","endpoint":"","audio":"","audioOnOpen":false};
 window.LIGHT_OPTS = {"warm":"rgba(255,244,214,0.58)","cool":"rgba(214,180,110,0.30)","fade":"rgba(247,242,233,0)"};
-window.PETALS = {"dir":-1,"count":20,"colors":["#E8C9C4","#D9A7A0","#C9A24A","#EFE0C6"]};
+window.PETALS = {"dir":-1,"count":20,"colors":["#FFFDFA","#F7EDE9","#EFDCD8","#FAF3EC"]};
 window.GRAIN_ALPHA = 26;
 </script>
 <script>/* =============================================================================

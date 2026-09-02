@@ -33,7 +33,7 @@ const concepts = [
     layers: { light: true, petals: true, spot: false, shadow: false, nacre: false },
     runtime: {
       LIGHT_OPTS: { warm: 'rgba(255,244,214,0.58)', cool: 'rgba(214,180,110,0.30)', fade: 'rgba(247,242,233,0)' },
-      PETALS: { dir: -1, count: 20, colors: ['#E8C9C4', '#D9A7A0', '#C9A24A', '#EFE0C6'] },
+      PETALS: { dir: -1, count: 20, colors: ['#FFFDFA', '#F7EDE9', '#EFDCD8', '#FAF3EC'] },
       GRAIN_ALPHA: 26
     }
   },
