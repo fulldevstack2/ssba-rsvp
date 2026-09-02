@@ -143,6 +143,15 @@ window.CONTENT = {
       title: 'Syed Saddiq & Bella Astillah — 10.10.2026',
       desc: 'Dengan penuh kesyukuran, kami menjemput tuan/puan ke majlis perkahwinan kami. Sabtu, 10 Oktober 2026 · Aras 118, Menara Merdeka Maybank, Kuala Lumpur.'
     },
+    paper: {
+      masthead: 'Walimatul Urus',
+      kicker: 'Kuala Lumpur · Edisi Khas',
+      lede: 'Dengan penuh kesyukuran ke hadrat Ilahi, kedua-dua keluarga dengan segala hormatnya menjemput Dato\' / Datin / Tuan / Puan / Encik / Cik sekeluarga hadir ke majlis perkahwinan anakanda kami, seterusnya memberi restu dan meraikan hari bahagia mereka berdua.',
+      cut: 'Potong di sini',
+      stamp: 'Diterima',
+      letters: 'Ucapan Daripada Pembaca',
+      setIn: 'Huruf'
+    },
     nav: { invite: 'Jemputan', story: 'Kisah', events: 'Majlis', schedule: 'Atur Cara', travel: 'Panduan', rsvp: 'RSVP', wishes: 'Ucapan' },
     labels: {
       date: 'Tarikh', time: 'Masa', venue: 'Tempat', dress: 'Tema pakaian', place: 'Lokasi',
@@ -217,10 +226,10 @@ window.CONTENT = {
       items: [
         { t: 'Dengan MRT', b: 'Stesen Merdeka (Laluan Kajang, KG17) terletak betul-betul di sebelah menara. Gunakan Pintu Masuk B di bahagian selatan — ia paling hampir dengan lobi.' },
         { t: 'Dengan kereta', b: 'Terowong Belfield dari Jalan Syed Putra atau Jalan Damansara membawa terus ke Aras Bawah Tanah 4. Tempat letak kereta disediakan di dalam presint.' },
-        { t: 'Ketibaan', b: 'Sila tiba sekurang-kurangnya 45 minit lebih awal. Perjalanan dari lobi ke aras 118 mengambil sedikit masa dan kami tidak mahu tuan/puan tergesa-gesa.' },
+        { t: 'Ketibaan', b: 'Perjalanan dari lobi ke aras 118 mengambil sedikit masa. Waktu ketibaan yang disyorkan akan dimaklumkan bersama waktu akad.' },
         { t: 'Penginapan', b: 'Park Hyatt Kuala Lumpur terletak di dalam menara yang sama, dengan lobi di aras 75. Terdapat juga beberapa hotel berdekatan di sekitar Chinatown dan Bukit Bintang.' },
-        { t: 'Tema pakaian', b: 'Serba putih dan ivori. Tuan/puan dialu-alukan untuk berpakaian putih bersama kami — majlis ini memang diimpikan serba putih.' },
-        { t: 'Kanak-kanak', b: 'Anak-anak amat dialu-alukan. Sila nyatakan bilangan mereka semasa mengesahkan kehadiran supaya kami dapat menyediakan tempat.' }
+        { t: 'Tema pakaian', b: 'Tema majlis ialah serba putih. Kod pakaian untuk tetamu belum dimaklumkan; butirannya akan kami kongsikan sebelum hari tersebut.' },
+        { t: 'Kanak-kanak', b: 'Jika anak-anak turut hadir bersama tuan/puan, sila nyatakan bilangan mereka semasa mengesahkan kehadiran.' }
       ]
     },
     rsvp: {
@@ -278,7 +287,7 @@ window.CONTENT = {
     faq: {
       title: 'Soalan Lazim',
       items: [
-        { q: 'Bolehkah saya membawa tetamu tambahan?', a: 'Jemputan ini adalah untuk nama yang tertera pada kad. Jika tuan/puan ingin membawa seseorang bersama, sila hubungi kami dan kami akan cuba sedaya upaya.' },
+        { q: 'Bolehkah saya membawa tetamu tambahan?', a: 'Jemputan ini adalah untuk nama yang tertera pada kad. Untuk sebarang pertanyaan lain, sila hubungi kami.' },
         { q: 'Bilakah tarikh dan tempat majlis resepsi akan dimaklumkan?', a: 'Kami sedang memuktamadkannya. Sahkan minat tuan/puan melalui borang RSVP dan kami akan menghubungi tuan/puan secara peribadi sebaik sahaja butiran disahkan.' },
         { q: 'Adakah majlis ini disiarkan secara langsung?', a: 'Pautan siaran akan dikongsikan di halaman ini jika ada, buat tuan/puan yang tidak dapat hadir.' },
         { q: 'Bolehkah saya mengubah jawapan saya?', a: 'Boleh. Buka semula pautan yang sama dan pilih "Ubah jawapan" sebelum tarikh akhir.' }
@@ -300,6 +309,15 @@ window.CONTENT = {
     meta: {
       title: 'Syed Saddiq & Bella Astillah — 10.10.2026',
       desc: 'With gratitude, we invite you to our wedding. Saturday, 10 October 2026 · Level 118, Menara Merdeka Maybank, Kuala Lumpur.'
+    },
+    paper: {
+      masthead: 'Walimatul Urus',
+      kicker: 'Kuala Lumpur · Special Edition',
+      lede: 'With gratitude to God, both families warmly invite you and your family to the marriage of our children, and to share in the blessing of their day.',
+      cut: 'Cut along the line',
+      stamp: 'Received',
+      letters: 'Letters to the Couple',
+      setIn: 'Set in'
     },
     nav: { invite: 'Invitation', story: 'Story', events: 'Events', schedule: 'Order of Day', travel: 'Guest Guide', rsvp: 'RSVP', wishes: 'Wishes' },
     labels: {
@@ -375,10 +393,10 @@ window.CONTENT = {
       items: [
         { t: 'By MRT', b: 'Merdeka station (Kajang Line, KG17) sits directly beside the tower. Use Entrance B on the south side — it is closest to the lobby.' },
         { t: 'By car', b: 'The Belfield Tunnel from Jalan Syed Putra or Jalan Damansara brings you straight into Basement 4. Parking is available within the precinct.' },
-        { t: 'Arrival', b: 'Please arrive at least 45 minutes early. The journey from the lobby up to level 118 takes a little time, and we would hate for you to rush.' },
+        { t: 'Arrival', b: 'The journey from the lobby up to level 118 takes a little time. A suggested arrival time will be announced together with the akad time.' },
         { t: 'Staying over', b: 'Park Hyatt Kuala Lumpur is inside the same tower, with its lobby on level 75. There are also several hotels a short walk away around Chinatown and Bukit Bintang.' },
-        { t: 'What to wear', b: 'All white and ivory. You are warmly invited to wear white alongside us — this day was always meant to be entirely in white.' },
-        { t: 'Children', b: 'Children are very welcome. Do tell us how many are coming when you reply, so we can set a place for each of them.' }
+        { t: 'What to wear', b: 'The theme of the day is all white. A dress code for guests has not been announced; we will share it before the day.' },
+        { t: 'Children', b: 'If children are coming with you, please tell us how many when you reply.' }
       ]
     },
     rsvp: {
@@ -436,7 +454,7 @@ window.CONTENT = {
     faq: {
       title: 'Questions',
       items: [
-        { q: 'May I bring an extra guest?', a: 'The invitation is for the names printed on your card. If you would like to bring someone, do message us and we will do our very best.' },
+        { q: 'May I bring an extra guest?', a: 'The invitation is for the names printed on your card. For anything else, please message us.' },
         { q: 'When will the reception dates and venues be announced?', a: 'We are finalising them now. Register your interest through the reply form and we will contact you personally the moment details are confirmed.' },
         { q: 'Will the day be broadcast?', a: 'If a livestream link is available, we will share it on this page for those who cannot be with us in person.' },
         { q: 'Can I change my reply?', a: 'Yes. Open the same link again and choose "Change reply" any time before the deadline.' }

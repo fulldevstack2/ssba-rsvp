@@ -35,6 +35,7 @@ h1{font-family:"Playfair",Didot,serif;font-variation-settings:"opsz" 1200;
 .lede{margin-top:1.4rem;font-size:clamp(1.05rem,2.4vw,1.22rem);color:var(--ink-2);max-width:44ch}
 .how{display:grid;gap:.9rem}
 .how li{display:grid;grid-template-columns:1.9rem 1fr;gap:.9rem;font-size:.95rem;color:var(--ink-2)}
+.how li b{font-weight:600;color:var(--ink)}
 .how span{font-variant-numeric:tabular-nums;color:var(--mute);font-size:.78rem;padding-top:.22rem}
 
 .note{margin-top:clamp(2.5rem,6vw,4rem);max-width:62ch;color:var(--ink-2);font-size:1.02rem}
@@ -87,6 +88,7 @@ h1{font-family:"Playfair",Didot,serif;font-variation-settings:"opsz" 1200;
     <ol class="how">
       <li><span>01</span>Open all four. Each is the whole invitation, end to end, including the reply form.</li>
       <li><span>02</span>The words, the running order and the RSVP are identical in all four. Only the design changes.</li>
+      <li><span>&#9679;</span><b>Nur is rebuilt as its own scrolling experience.</b> The other three still show the earlier draft and are being given the same treatment, each with its own structure rather than a change of palette.</li>
       <li><span>03</span>Come back with the one you want, and anything you would change inside it.</li>
     </ol>
   </header>
@@ -115,6 +117,7 @@ h1{font-family:"Playfair",Didot,serif;font-variation-settings:"opsz" 1200;
 <script>
 const CONCEPTS = {{concepts}};
 const SPECIMEN = 'Dengan penuh kesyukuran, kami menjemput tuan/puan.';
+const REBUILT = ['nur'];   // directions rebuilt as their own structure
 document.getElementById('grid').innerHTML = CONCEPTS.map(function (c) {
   var bg = c.swatches[0].value;
   var accent = c.swatches[1] ? c.swatches[1].value : bg;
@@ -122,11 +125,12 @@ document.getElementById('grid').innerHTML = CONCEPTS.map(function (c) {
   return '<li><a class="panel" href="design/' + c.id + '/index.html" style="' +
       '--pbg:' + bg + ';--pfg:' + fg + ';--paccent:' + accent +
       ';--pdisplay:\'' + c.display + '\',serif">' +
-      '<span class="panel__top"><span>Design ' + c.ordinal + '</span><span>Daylight</span></span>' +
+      '<span class="panel__top"><span>Design ' + c.ordinal + '</span><span>' +
+        (REBUILT.indexOf(c.id) >= 0 ? 'Ready' : 'Earlier draft') + '</span></span>' +
       '<span><span class="panel__name">' + c.name + '</span>' +
       '<span class="panel__tag">' + c.tagline + '</span></span>' +
       '<span class="panel__specimen">' + SPECIMEN + '</span>' +
-      '<span class="panel__object">' + c.object + '</span>' +
+      '<span class="panel__object">' + (c.structure || c.object) + '</span>' +
       '<span class="panel__premise">' + c.premise + '</span>' +
       '<span class="sw">' + c.swatches.map(function (s) {
         return '<i style="background:' + s.value + '" title="' + s.name + '"></i>';

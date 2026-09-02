@@ -1,0 +1,18 @@
+/* The only shared CSS: things with no visual opinion. Everything a reader can
+   see belongs to a single concept. */
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img,svg,canvas,video{display:block;max-width:100%}
+a{color:inherit}
+button,input,textarea,select{font:inherit;color:inherit}
+h1,h2,h3,h4{margin:0;font-weight:400}
+p{margin:0}
+ul,ol,dl,dd{margin:0;padding:0;list-style:none}
+.sr{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto!important}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;
+    transition-duration:.01ms!important;scroll-behavior:auto!important}
+}

@@ -38,13 +38,19 @@ function runtime(c) {
   return Object.keys(r).map((k) => `window.${k} = ${JSON.stringify(r[k])};`).join('\n');
 }
 
-const page = read('src/page.html');
 let built = 0;
 for (const c of concepts) {
-  const cssPath = `src/concepts/${c.id}.css`;
-  if (!fs.existsSync(path.join(root, cssPath))) { console.log(`skip  ${c.id} (no stylesheet yet)`); continue; }
+  /* A concept owns its own markup and its own stylesheet. Nothing about how a
+     design looks is shared — only the machinery underneath it. */
+  const ownPage = `src/concepts/${c.id}/page.html`;
+  const ownCss  = `src/concepts/${c.id}/style.css`;
+  if (!fs.existsSync(path.join(root, ownPage)) || !fs.existsSync(path.join(root, ownCss))) {
+    console.log(`skip  ${c.id} (not rebuilt yet)`); continue;
+  }
+  const page = read(ownPage);
+  const cssPath = ownCss;
   let html = page
-    .replace(/\{\{style\}\}/g, () => geometry(read('src/concepts/_base.css') + '\n' + read(cssPath)))
+    .replace(/\{\{style\}\}/g, () => geometry(read('src/reset.css') + '\n' + read(cssPath)))
     .replace(/\{\{fonts\}\}/g, c.fonts)
     .replace(/\{\{themeColor\}\}/g, c.themeColor)
     .replace(/\{\{arabicClass\}\}/g, c.arabicClass)

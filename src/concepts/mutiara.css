@@ -20,6 +20,7 @@
   /* nacre: the shell's own colours, not metal */
   --foil:linear-gradient(104deg,#8C7F86 0%,#9F8793 12%,#7491A1 26%,#BB7B8F 38%,
     #6F9682 50%,#B3844B 62%,#7C8FA5 76%,#8C7F86 100%);
+  --foil-tile:52rem; --foil-shift:-52rem; --foil-speed:34s;
   --foot-bg:#201C1A; --foot-ink:#F6F4F1;
 }
 body{background-image:

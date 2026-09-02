@@ -308,13 +308,62 @@
     document.dispatchEvent(new CustomEvent('ssba:ready'));
   };
 
+  /* ------------------------------------------------------------ scroll stage */
+  /* A tall track with a pinned, viewport-height frame. Scroll position is
+     published to CSS three ways so a section can transform in place instead of
+     scrolling past:
+
+       --p    0 -> 1 across the whole track
+       --cut  0 -> 1 within the current cut
+       data-cut  the current cut index, for anything that must switch discretely
+
+     Markup:  <section data-stage="6:4">   six viewport heights, four cuts
+                <div data-stage-pin> ... </div>
+              </section>                                                      */
+  FX.stage = function (track) {
+    var pin = $('[data-stage-pin]', track);
+    if (!pin) return;
+    var spec = (track.getAttribute('data-stage') || '4:1').split(':');
+    var vh = parseFloat(spec[0]) || 4, cuts = Math.max(1, parseInt(spec[1], 10) || 1);
+
+    if (reduce) {
+      // No pinning without motion: the frame simply sits in the flow, fully shown.
+      track.style.height = 'auto';
+      pin.style.position = 'static';
+      pin.style.height = 'auto';
+      pin.style.setProperty('--p', '1');
+      pin.style.setProperty('--cut', '1');
+      pin.setAttribute('data-cut', String(cuts - 1));
+      track.classList.add('stage-flat');
+      return;
+    }
+
+    function layout() { track.style.height = (vh * 100) + 'vh'; }
+    layout();
+    addEventListener('resize', function () { layout(); measure(); }, { passive: true });
+
+    var frame = 0, last = -1;
+    function measure() {
+      frame = 0;
+      var r = track.getBoundingClientRect();
+      var travel = r.height - innerHeight;
+      var p = travel > 0 ? Math.min(1, Math.max(0, -r.top / travel)) : 0;
+      pin.style.setProperty('--p', p.toFixed(4));
+      var idx = Math.min(cuts - 1, Math.floor(p * cuts));
+      pin.style.setProperty('--cut', Math.min(1, Math.max(0, p * cuts - idx)).toFixed(4));
+      if (idx !== last) { last = idx; pin.setAttribute('data-cut', String(idx)); }
+    }
+    addEventListener('scroll', function () { if (!frame) frame = requestAnimationFrame(measure); }, { passive: true });
+    measure();
+  };
+
   /* -------------------------------------------------------------- boot order */
   function boot() {
     $$('[data-split]').forEach(FX.split);
     FX.grain($('[data-grain]'), { alpha: window.GRAIN_ALPHA || 26 });
     FX.light($('[data-light]'), window.LIGHT_OPTS);
     FX.scroll();
-    FX.rail($('[data-rail]'));
+    $$('[data-stage]').forEach(FX.stage);
     FX.spotlight($('[data-spot]'));
     FX.headerNames();
     FX.petals($('[data-petals]'), window.PETALS || {});

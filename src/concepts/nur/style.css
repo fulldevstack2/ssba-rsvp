@@ -433,3 +433,182 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
   .foot{background:#fff;color:#000}
   .bay{padding-block:1.5rem;break-inside:avoid}
 }
+/* 01 — NUR · Gilded daylight
+   A gilded ivory card held up to a window. Ivory lit by a slow caustic light,
+   one weight of gilt, inscriptional capitals, petals rising on the updraft. */
+:root{
+  --bg:#F7F2E9; --bg-2:#F1E8D8; --bg-3:#E9DEC8; --surface:#FCFAF4;
+  --ink:#191410; --ink-2:#463A2B; --mute:#6B5C44;
+  --line:rgba(110,86,40,.22); --line-soft:rgba(110,86,40,.10);
+  --accent:#A8895A;        /* drawn ornament */
+  --accent-ink:#7D6633;    /* 4.9:1 on ivory */
+  --bad:#9E3F26;
+  --display:"Cinzel","Trajan Pro",serif;
+  --body:"Cormorant Garamond","Iowan Old Style",Georgia,serif;
+  --util:"Manrope","Avenir Next",system-ui,sans-serif;
+  --arabic:"Reem Kufi","Amiri",serif;
+  --shell:82rem; --measure:36rem;
+  --gut:clamp(1.25rem,5vw,4rem);
+  --bay:clamp(5rem,14vw,11rem);
+  --ez:cubic-bezier(.16,1,.3,1);
+  /* gilt that catches the light as it travels */
+  --foil:linear-gradient(100deg,#6B5322 0%,#7E6733 14%,#A68758 26%,#AB8739 40%,
+    #AA874B 52%,#A68758 66%,#7E6733 84%,#6B5322 100%);
+  --foil-tile:46rem; --foil-shift:-46rem; --foil-speed:30s;
+  --foot-bg:#191410; --foot-ink:#F7F2E9;
+}
+
+/* The names arrive as one movement rather than letter by letter: they rise a
+   little, and a soft blur resolves. Slower and quieter than a per-letter mask. */
+.hero__names .sp-c{transform:none;transition:none}
+.hero__names .hero__line{
+  opacity:0;filter:blur(14px);transform:translateY(.34em);
+  transition:opacity 1.7s var(--ez),filter 2s var(--ez),transform 2s var(--ez);
+  transition-delay:var(--d,0ms)}
+.ready .hero__names .hero__line{opacity:1;filter:blur(0);transform:none}
+@media (prefers-reduced-motion:reduce){
+  .hero__names .hero__line{opacity:1;filter:none;transform:none;transition:none}}
+.hero__names{letter-spacing:.06em;text-transform:uppercase;font-size:clamp(1.9rem,8.4vw,6rem);line-height:1.12}
+.hero__amp{font-size:.34em;text-transform:none;letter-spacing:0}
+.head__title{letter-spacing:.05em;text-transform:uppercase;font-size:clamp(1.8rem,5.6vw,3.2rem)}
+.card__title,.beat__title{letter-spacing:.03em;text-transform:uppercase}
+.pullbig q{letter-spacing:.03em;text-transform:uppercase;font-size:clamp(1.5rem,4.4vw,3rem)}
+
+/* =============================================================================
+   NUR · THE SCROLL
+   -----------------------------------------------------------------------------
+   Past the hero the page stops scrolling and starts cutting. Each set piece is
+   a tall track with a pinned frame; the scroll drives `--p` (0 → 1 across the
+   track) and `--cut` (within the current cut), and the composition transforms
+   in place. Nothing slides past — it changes.
+   ============================================================================= */
+.stage{position:relative}
+.stage__pin{position:sticky;top:0;height:100svh;overflow:hidden;
+  display:grid;place-items:center;isolation:isolate;padding:clamp(4.5rem,10vh,7rem) var(--gut)}
+.stage-flat .stage__pin{position:static;height:auto;padding-block:var(--bay)}
+
+/* ---------------------------------------------------- I · the seal is cut -- */
+/* Six cuts, six steps of a compass-and-straightedge construction. */
+.seal__art{position:absolute;width:min(88vmin,46rem);color:var(--accent);pointer-events:none;
+  opacity:calc(.28 + var(--p,0) * .5)}
+.seal__art svg{width:100%;height:auto}
+.seal .kh [class^="kh-"]{stroke-linecap:round}
+.seal .kh-circle {stroke-dasharray:3400;stroke-dashoffset:calc(3400 * (1 - clamp(0,  var(--p,0)         / .17,1)))}
+.seal .kh-mark   {stroke-dasharray:160; stroke-dashoffset:calc(160  * (1 - clamp(0, (var(--p,0) - .15) / .14,1)))}
+.seal .kh-radii  {stroke-dasharray:2600;stroke-dashoffset:calc(2600 * (1 - clamp(0, (var(--p,0) - .30) / .16,1)))}
+.seal .kh-square {stroke-dasharray:3400;stroke-dashoffset:calc(3400 * (1 - clamp(0, (var(--p,0) - .46) / .16,1)))}
+.seal .kh-star   {stroke-dasharray:4200;stroke-dashoffset:calc(4200 * (1 - clamp(0, (var(--p,0) - .62) / .18,1)));stroke-width:2.4}
+.seal .kh-rosette{stroke-dasharray:2600;stroke-dashoffset:calc(2600 * (1 - clamp(0, (var(--p,0) - .80) / .18,1)))}
+.seal .kh-circle,.seal .kh-mark,.seal .kh-radii{opacity:calc(1 - clamp(0,(var(--p,0) - .72)/.24,1) * .62)}
+
+.seal__words{position:relative;z-index:1;text-align:center;isolation:isolate;display:grid;gap:1.2rem;justify-items:center;
+  max-width:34rem;opacity:clamp(0,(var(--p,0) - .58)/.26,1);
+  transform:translateY(calc((1 - clamp(0,(var(--p,0) - .58)/.26,1)) * 1.4rem))}
+.seal__words::before{content:"";position:absolute;inset:-16% -22%;z-index:-1;
+  background:radial-gradient(58% 52% at 50% 50%,var(--bg) 44%,color-mix(in srgb,var(--bg) 55%,transparent) 72%,transparent 88%)}
+.seal__ar{font-family:var(--arabic);direction:rtl;font-size:clamp(1.2rem,3.4vw,1.7rem);
+  color:var(--accent-ink);line-height:2}
+.seal__lede{font-family:var(--body);font-style:italic;color:var(--ink-2);
+  font-size:clamp(1.02rem,2.6vw,1.2rem);line-height:1.7}
+.seal__step{position:absolute;bottom:clamp(1.5rem,4vh,2.6rem);left:0;right:0;
+  display:flex;gap:clamp(.6rem,2vw,1.4rem);justify-content:center;flex-wrap:wrap;
+  font-family:var(--util);font-weight:300;font-size:.56rem;letter-spacing:.26em;text-transform:uppercase}
+.seal__step i{font-style:normal;color:var(--mute);opacity:.32;transition:opacity .4s,color .4s}
+[data-cut="0"] .seal__step i:nth-child(1),[data-cut="1"] .seal__step i:nth-child(2),
+[data-cut="2"] .seal__step i:nth-child(3),[data-cut="3"] .seal__step i:nth-child(4),
+[data-cut="4"] .seal__step i:nth-child(5),[data-cut="5"] .seal__step i:nth-child(6){opacity:1;color:var(--accent-ink)}
+
+/* --------------------------------------------- II · the two families meet -- */
+.families__h{position:absolute;top:clamp(3.5rem,10vh,6rem);left:0;right:0;text-align:center;
+  font-family:var(--util);font-weight:400;font-size:.66rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--mute)}
+.families .hosts{margin-top:0;width:min(62rem,92vw)}
+.families .hosts__side{opacity:var(--p,0);transition:none}
+.families .hosts__side:first-child{transform:translateX(calc((1 - var(--p,0)) * -12vw))}
+.families .hosts__side:last-child {transform:translateX(calc((1 - var(--p,0)) *  12vw))}
+.families .hosts__div{transform:scaleY(var(--p,0));transform-origin:center}
+.families__kids{position:absolute;bottom:clamp(3.5rem,10vh,6rem);left:0;right:0;text-align:center;
+  font-style:italic;color:var(--mute);
+  opacity:clamp(0,(var(--p,0) - .55)/.35,1)}
+
+/* -------------------------------------------------- III · four beats, cut -- */
+.story__h{position:absolute;top:clamp(3.5rem,9vh,5.5rem);left:0;right:0;text-align:center;
+  font-family:var(--display);font-size:clamp(1.1rem,2.6vw,1.5rem);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--mute)}
+.story__beats{position:relative;width:min(70rem,92vw);height:min(66svh,34rem)}
+.story .beat{position:absolute;inset:0;margin:0;opacity:0;pointer-events:none;
+  transform:translateY(1.6rem) scale(.985);
+  transition:opacity .8s var(--ez),transform 1s var(--ez)}
+[data-cut="0"] .beat:nth-child(1),[data-cut="1"] .beat:nth-child(2),
+[data-cut="2"] .beat:nth-child(3),[data-cut="3"] .beat:nth-child(4){
+  opacity:1;transform:none;pointer-events:auto}
+.story .beat__art{align-self:center}
+.story .plate{aspect-ratio:4/5;max-height:min(60svh,30rem);margin-inline:auto}
+.story__dots{position:absolute;bottom:clamp(2rem,6vh,3.2rem);left:0;right:0;
+  display:flex;gap:.55rem;justify-content:center}
+.story__dots i{width:26px;height:1px;background:var(--line);display:block;transition:background-color .4s}
+[data-cut="0"] .story__dots i:nth-child(1),[data-cut="1"] .story__dots i:nth-child(2),
+[data-cut="2"] .story__dots i:nth-child(3),[data-cut="3"] .story__dots i:nth-child(4){background:var(--accent-ink)}
+
+/* the pull quote gets a band of its own between the two big stages */
+.quote{background:var(--bg-2);padding-block:clamp(5rem,14vw,9rem);text-align:center}
+.quote q{quotes:none;display:block;font-family:var(--display);letter-spacing:.03em;text-transform:uppercase;
+  font-size:clamp(1.5rem,4.4vw,3rem);line-height:1.2;max-width:20ch;margin-inline:auto}
+.quote cite{display:block;margin-top:1.9rem;font-style:normal;font-family:var(--util);font-weight:400;
+  font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;color:var(--accent-ink)}
+
+/* ------------------------------------------------- IV · the cards are dealt- */
+.deal__h{position:absolute;top:clamp(3.5rem,9vh,5.5rem);left:0;right:0;text-align:center;
+  font-family:var(--display);font-size:clamp(1.1rem,2.6vw,1.5rem);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--mute)}
+.deal__cards{position:relative;width:min(74rem,94vw);height:min(64svh,34rem)}
+.deal .card{position:absolute;left:50%;top:50%;width:min(30rem,88vw);max-height:100%;
+  overflow:auto;opacity:0;
+  transform:translate(-50%,-50%) translateX(16vw) rotate(4.5deg) scale(.94);
+  transition:opacity .7s var(--ez),transform .95s var(--ez);
+  box-shadow:0 30px 70px rgba(25,20,16,.10)}
+.deal .card--hero{width:min(34rem,90vw)}
+/* a dealt card has to be opaque or the stack reads through it; the "details to
+   follow" cards are transparent everywhere else on the site, but not here */
+.deal .card--tbc{background:var(--surface)}
+/* cards already laid down slide left and dim */
+[data-cut="1"] .card:nth-child(1),
+[data-cut="2"] .card:nth-child(-n+2),
+[data-cut="3"] .card:nth-child(-n+3){
+  opacity:.10;transform:translate(-50%,-50%) translateX(-26vw) rotate(-5deg) scale(.86)}
+/* the card being read */
+[data-cut="0"] .card:nth-child(1),
+[data-cut="1"] .card:nth-child(2),
+[data-cut="2"] .card:nth-child(3),
+[data-cut="3"] .card:nth-child(4){
+  opacity:1;transform:translate(-50%,-50%);z-index:2}
+.deal__rail{position:absolute;bottom:clamp(2rem,6vh,3.2rem);left:0;right:0;
+  display:flex;gap:.55rem;justify-content:center}
+.deal__rail i{width:26px;height:1px;background:var(--line);display:block;transition:background-color .4s}
+[data-cut="0"] .deal__rail i:nth-child(1),[data-cut="1"] .deal__rail i:nth-child(2),
+[data-cut="2"] .deal__rail i:nth-child(3),[data-cut="3"] .deal__rail i:nth-child(4){background:var(--accent-ink)}
+
+/* ------------------------------------------------------ V · the count ------ */
+.count__h{position:absolute;top:clamp(3.5rem,10vh,6rem);left:0;right:0;text-align:center;
+  font-family:var(--util);font-weight:400;font-size:.66rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--mute)}
+.count .cd{transform:scale(calc(.9 + var(--p,0) * .1))}
+.count .cd__unit{opacity:calc(.25 + var(--p,0) * .75)}
+.count .cd__num{font-size:clamp(3.2rem,13vw,9rem)}
+
+/* --------------------------------------------------- VI · the verse -------- */
+.verse .blessing{opacity:clamp(0,(var(--p,0) - .12)/.4,1);
+  transform:translateY(calc((1 - clamp(0,(var(--p,0) - .12)/.4,1)) * 1.5rem))}
+.verse__h{font-family:var(--util);font-weight:400;font-size:.66rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--mute);text-align:center}
+.verse__gift{margin:1.1rem auto clamp(2.5rem,7vw,4rem);text-align:center;font-style:italic;
+  color:var(--ink-2);max-width:40ch;font-size:clamp(1.04rem,3vw,1.18rem)}
+.verse .stage__pin{align-content:center}
+
+@media (prefers-reduced-motion:reduce){
+  .stage__pin{position:static;height:auto}
+  .seal__art,.seal__words,.families .hosts__side,.families__kids,
+  .verse .blessing,.count .cd,.count .cd__unit{opacity:1;transform:none}
+  .story .beat,.deal .card{position:relative;inset:auto;opacity:1;transform:none;left:auto;top:auto}
+  .story__beats,.deal__cards{height:auto;display:grid;gap:2rem}
+}

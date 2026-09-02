@@ -19,8 +19,20 @@
   /* gilt that catches the light as it travels */
   --foil:linear-gradient(100deg,#6B5322 0%,#7E6733 14%,#A68758 26%,#AB8739 40%,
     #AA874B 52%,#A68758 66%,#7E6733 84%,#6B5322 100%);
+  --foil-tile:46rem; --foil-shift:-46rem; --foil-speed:30s;
   --foot-bg:#191410; --foot-ink:#F7F2E9;
 }
+
+/* The names arrive as one movement rather than letter by letter: they rise a
+   little, and a soft blur resolves. Slower and quieter than a per-letter mask. */
+.hero__names .sp-c{transform:none;transition:none}
+.hero__names .hero__line{
+  opacity:0;filter:blur(14px);transform:translateY(.34em);
+  transition:opacity 1.7s var(--ez),filter 2s var(--ez),transform 2s var(--ez);
+  transition-delay:var(--d,0ms)}
+.ready .hero__names .hero__line{opacity:1;filter:blur(0);transform:none}
+@media (prefers-reduced-motion:reduce){
+  .hero__names .hero__line{opacity:1;filter:none;transform:none;transition:none}}
 .hero__names{letter-spacing:.06em;text-transform:uppercase;font-size:clamp(1.9rem,8.4vw,6rem);line-height:1.12}
 .hero__amp{font-size:.34em;text-transform:none;letter-spacing:0}
 .head__title{letter-spacing:.05em;text-transform:uppercase;font-size:clamp(1.8rem,5.6vw,3.2rem)}
