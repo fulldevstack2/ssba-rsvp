@@ -74,6 +74,13 @@ function photoCss(photos) {
   if (!photos.length) return '';
   return '\n:root{' + photos.map((p) => `--img-${p.n}:url(${p.rel})`).join(';') + '}\n';
 }
+/* The background music travels with the page the same way. */
+const AUDIO_SRC = 'assets/audio/bgm.mp3';
+function hasAudio() { return fs.existsSync(path.join(root, AUDIO_SRC)); }
+function copyAudio(destDir) {
+  if (!hasAudio()) return;
+  fs.copyFileSync(path.join(root, AUDIO_SRC), path.join(destDir, 'bgm.mp3'));
+}
 function copyPhotos(photos, destDir) {
   for (const p of photos) {
     const to = path.join(destDir, p.rel);
@@ -101,7 +108,8 @@ for (const c of concepts) {
     .replace(/\{\{arabicClass\}\}/g, c.arabicClass)
     .replace(/\{\{heroLayers\}\}/g, heroLayers(c))
     .replace(/\{\{config\}\}/g, JSON.stringify({
-      design: c.id, countdownTo: '2026-10-10T10:00:00+08:00', endpoint: '', audio: '', audioOnOpen: false
+      design: c.id, countdownTo: '2026-10-10T10:00:00+08:00', endpoint: '',
+      audio: hasAudio() ? 'bgm.mp3' : '', audioOnOpen: true
     }, null, 0))
     .replace(/\{\{runtime\}\}/g, runtime(c));
   html = geometry(inline(html));
@@ -111,6 +119,7 @@ for (const c of concepts) {
   fs.mkdirSync(path.dirname(out), { recursive: true });
   fs.writeFileSync(out, html);
   copyPhotos(photos, path.dirname(out));
+  copyAudio(path.dirname(out));
   console.log(`built design/${c.id}/index.html  ${(html.length / 1024).toFixed(1)} kB` +
     (photos.length ? `  + ${photos.length} photo${photos.length > 1 ? 's' : ''}` : ''));
   built++;

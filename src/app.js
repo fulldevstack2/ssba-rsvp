@@ -177,7 +177,9 @@
   function renderSchedule() {
     var host = $('[data-schedule]'); if (!host) return;
     host.innerHTML = (C.schedule || []).map(function (x) {
-      return '<li class="run" data-seq><span class="run__t">' + esc(x.time) + '</span>' +
+      // no time yet means no time column, rather than a dash standing in for one
+      return '<li class="run' + (x.time ? '' : ' run--untimed') + '" data-seq>' +
+        (x.time ? '<span class="run__t">' + esc(x.time) + '</span>' : '') +
         '<span class="run__b"><b>' + esc(pick(x.title)) + '</b>' +
         (x.desc ? '<span>' + esc(pick(x.desc)) + '</span>' : '') + '</span></li>';
     }).join('');
@@ -239,7 +241,7 @@
     return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//SSBA//Wedding//EN', 'CALSCALE:GREGORIAN', 'BEGIN:VEVENT',
       'UID:' + ev.id + '@ssba-wedding', 'DTSTAMP:' + stamp(Date.now()),
       'DTSTART:' + stamp(ev.start), 'DTEND:' + stamp(ev.end || (new Date(ev.start).getTime() + 3 * 36e5)),
-      'SUMMARY:' + txt(t('calendar.summary') + ' — ' + pick(ev.title)),
+      'SUMMARY:' + txt(t('calendar.summary') + ': ' + pick(ev.title)),
       'LOCATION:' + txt(pick(ev.venue) + (ev.address ? ', ' + ev.address : '')),
       'DESCRIPTION:' + txt(t('calendar.description')), 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
   }
@@ -255,7 +257,7 @@
       setTimeout(function () { URL.revokeObjectURL(url); }, 3000);
     } catch (err) {}
     var g = 'https://calendar.google.com/calendar/render?action=TEMPLATE' +
-      '&text=' + encodeURIComponent(t('calendar.summary') + ' — ' + pick(ev.title)) +
+      '&text=' + encodeURIComponent(t('calendar.summary') + ': ' + pick(ev.title)) +
       '&dates=' + ics.match(/DTSTART:(\w+)/)[1] + '/' + ics.match(/DTEND:(\w+)/)[1] +
       '&location=' + encodeURIComponent(pick(ev.venue)) +
       '&details=' + encodeURIComponent(t('calendar.description'));
@@ -298,18 +300,65 @@
   /* The opening sequence lives in fx.js (the preloader). */
 
   /* -------------------------------------------------------------------- music */
+  /* A browser will not let a page make noise before the guest has touched it,
+     so the music arms itself and starts on the first gesture. The choice is
+     remembered: someone who mutes it stays muted on their next visit. */
   var musicBtn = $('[data-music]');
   if (musicBtn) {
     if (!CFG.audio) { musicBtn.hidden = true; }
     else {
-      var audio = new Audio(CFG.audio); audio.loop = true; audio.volume = 0.35; audio.preload = 'none';
-      var setState = function (on) { musicBtn.classList.toggle('is-on', on); musicBtn.setAttribute('aria-pressed', String(on)); };
+      var KEY = 'ssba:music';
+      var remember = function (v) { try { localStorage.setItem(KEY, v); } catch (e) {} };
+      var recall = function () { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
+
+      var audio = new Audio(CFG.audio);
+      audio.loop = true; audio.volume = 0; audio.preload = 'auto';
+      var VOL = 0.32, fade = 0, wanted = recall() !== 'off';
+
+      function ramp(to, ms) {
+        cancelAnimationFrame(fade);
+        var from = audio.volume, t0 = performance.now();
+        (function step(t) {
+          var k = Math.min(1, (t - t0) / ms);
+          audio.volume = Math.max(0, Math.min(1, from + (to - from) * k));
+          if (k < 1) fade = requestAnimationFrame(step);
+          else if (to === 0) audio.pause();
+        })(t0);
+      }
+      function setState(on) {
+        musicBtn.classList.toggle('is-on', on);
+        musicBtn.setAttribute('aria-pressed', String(on));
+        musicBtn.setAttribute('aria-label', t(on ? 'labels.musicOn' : 'labels.musicOff') || 'Muzik');
+      }
+      function play() {
+        return audio.play().then(function () { setState(true); ramp(VOL, 1400); })
+                           .catch(function () { setState(false); });
+      }
+      setState(false);
+
       musicBtn.addEventListener('click', function () {
-        if (audio.paused) audio.play().then(function () { setState(true); }).catch(function () { setState(false); });
-        else { audio.pause(); setState(false); }
+        wanted = audio.paused;
+        remember(wanted ? 'on' : 'off');
+        if (wanted) play(); else { setState(false); ramp(0, 500); }
       });
-      document.addEventListener('ssba:open', function () {
-        if (CFG.audioOnOpen) audio.play().then(function () { setState(true); }).catch(function () {});
+
+      // the first touch anywhere is the gesture the browser is waiting for
+      var armed = function () {
+        if (!wanted || !audio.paused) return;
+        play();
+        ['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach(function (ev) {
+          removeEventListener(ev, armed, true);
+        });
+      };
+      ['pointerdown', 'keydown', 'touchstart', 'wheel'].forEach(function (ev) {
+        addEventListener(ev, armed, { capture: true, passive: true });
+      });
+      document.addEventListener('ssba:open', function () { if (CFG.audioOnOpen && wanted) play(); });
+
+      // nothing plays into a tab nobody is looking at
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) { if (!audio.paused) { audio.pause(); } }
+        else if (wanted && audio.paused) { audio.play().catch(function () {}); }
       });
     }
   }

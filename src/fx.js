@@ -320,7 +320,8 @@
       p.x = Math.random() * w;
       p.y = first ? Math.random() * h : (dir > 0 ? -60 * dpr : h + 60 * dpr);
       // petal length, scaled to the viewport so they stay petals on a phone
-      p.s = (16 + Math.random() * 30) * dpr * Math.min(1, Math.max(0.42, (w / dpr) / 900));
+      // a phone shrank these to specks; a petal should still read as a petal
+      p.s = (16 + Math.random() * 30) * dpr * Math.min(1, Math.max(0.74, (w / dpr) / 900));
       p.v = (0.14 + Math.random() * 0.34) * dpr * drift;   // fall/rise speed
       p.z = 0.45 + Math.random() * 0.55;           // depth: near petals bigger, softer, faster
       p.a = Math.random() * 6.283;                 // spin
@@ -462,6 +463,11 @@
       bloom:  { n: 24, r: [7, 18],     vy: [-0.12, -0.34], vx: 0.18, a: [0.26, 0.60], blur: 0 }
     };
     var spec = SPEC[mode] || SPEC.mote;
+    /* On a narrow screen everything in the background is being read from much
+       closer in, so the drift is scaled up rather than left as grit. */
+    if (innerWidth < 700) {
+      spec = Object.assign({}, spec, { r: [spec.r[0] * 1.5, spec.r[1] * 1.5] });
+    }
     var PETAL_COLS = {
       bloom: ['#EFC9C6', '#E4AEAB', '#F6DCD8', '#E0BE84', '#EAC0BC'],
       grain: ['#EBC5C1', '#DFC59A', '#F3D9D4', '#E3B4AF', '#E8CDA6']

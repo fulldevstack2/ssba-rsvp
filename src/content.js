@@ -47,7 +47,7 @@ window.CONTENT = {
       tr: 'Allahumma barik lahuma, wa barik ʻalayhima, wa-jmaʻ baynahuma fi khayr.',
       ms: 'Ya Allah, berkatilah mereka berdua, limpahkanlah keberkatan ke atas mereka, dan himpunkanlah mereka dalam kebaikan.',
       en: 'O God, bless them both, send Your blessings upon them, and unite them in goodness.',
-      src: { ms: 'Doa Rasulullah SAW bagi pasangan pengantin — riwayat At-Tirmizi', en: 'The Prophetic supplication for newlyweds — narrated by at-Tirmidhi' }
+      src: { ms: 'Doa Rasulullah SAW bagi pasangan pengantin, riwayat At-Tirmizi', en: 'The Prophetic supplication for newlyweds, narrated by at-Tirmidhi' }
     }
   },
 
@@ -85,8 +85,8 @@ window.CONTENT = {
       dateShort:{ ms: 'Oktober 2026', en: 'October 2026' },
       time:     { ms: 'Akan dimaklumkan', en: 'To be announced' },
       venue:    { ms: 'Butiran menyusul', en: 'Details to follow' },
-      note:     { ms: 'Sahkan minat anda sekarang — kami akan menghantar butiran penuh sebaik sahaja disahkan.',
-                  en: 'Register your interest now — we will send full details the moment they are confirmed.' },
+      note:     { ms: 'Sahkan minat anda sekarang, dan kami akan menghantar butiran penuh sebaik sahaja disahkan.',
+                  en: 'Register your interest now, and we will send full details the moment they are confirmed.' },
       tbc: true, rsvp: true
     },
     {
@@ -120,14 +120,14 @@ window.CONTENT = {
   /* --- Provisional running order for the akad day ---------------------------- */
   /* ← CONFIRM every time. Shown under a visible "provisional" label.        */
   schedule: [
-    { time: '—', title: { ms: 'Ketibaan tetamu', en: 'Guests arrive' },
+    { time: '', title: { ms: 'Ketibaan tetamu', en: 'Guests arrive' },
       desc: { ms: 'Pendaftaran di lobi, kemudian naik bersama-sama ke aras 118.', en: 'Registration in the lobby, then the ascent together to level 118.' } },
-    { time: '—', title: { ms: 'Ketibaan pengantin', en: 'The couple arrive' }, desc: null },
-    { time: '—', title: { ms: 'Akad nikah', en: 'The solemnisation' },
+    { time: '', title: { ms: 'Ketibaan pengantin', en: 'The couple arrive' }, desc: null },
+    { time: '', title: { ms: 'Akad nikah', en: 'The solemnisation' },
       desc: { ms: 'Bacaan doa, lafaz akad, dan sarung cincin.', en: 'Prayers, the vow, and the exchange of rings.' } },
-    { time: '—', title: { ms: 'Jamuan & makan beradab', en: 'The wedding feast' }, desc: null },
-    { time: '—', title: { ms: 'Sesi bergambar & bersalaman', en: 'Photographs & greetings' }, desc: null },
-    { time: '—', title: { ms: 'Majlis bersurai dengan doa selamat', en: 'A closing prayer' }, desc: null }
+    { time: '', title: { ms: 'Jamuan & makan beradab', en: 'The wedding feast' }, desc: null },
+    { time: '', title: { ms: 'Sesi bergambar & bersalaman', en: 'Photographs & greetings' }, desc: null },
+    { time: '', title: { ms: 'Majlis bersurai dengan doa selamat', en: 'A closing prayer' }, desc: null }
   ],
 
   /* --- Seed wishes (clearly labelled as examples until real ones arrive) ------ */
@@ -140,7 +140,7 @@ window.CONTENT = {
   /* ========================================================================== */
   ms: {
     meta: {
-      title: 'Syed Saddiq & Bella Astillah — 10.10.2026',
+      title: 'Syed Saddiq & Bella Astillah · 10.10.2026',
       desc: 'Dengan penuh kesyukuran, kami menjemput tuan/puan ke majlis perkahwinan kami. Sabtu, 10 Oktober 2026 · Aras 118, Menara Merdeka Maybank, Kuala Lumpur.'
     },
     paper: {
@@ -157,7 +157,8 @@ window.CONTENT = {
       date: 'Tarikh', time: 'Masa', venue: 'Tempat', dress: 'Tema pakaian', place: 'Lokasi',
       googleMaps: 'Google Maps', waze: 'Waze', addToCalendar: 'Simpan ke kalendar',
       googleCalendar: 'Buka Google Calendar', open: 'Buka Jemputan', openHint: 'Ketik untuk membuka',
-      music: 'Muzik', to: 'Jemputan khas untuk', and: 'dan', invitationOnly: 'Atas jemputan khas',
+      music: 'Muzik', musicOn: 'Muzik latar: hidup', musicOff: 'Muzik latar: senyap',
+      to: 'Jemputan khas untuk', and: 'dan', invitationOnly: 'Atas jemputan khas',
       detailsToFollow: 'Butiran menyusul', provisional: 'Atur cara tentatif',
       backToTop: 'Ke atas', copy: 'Salin', copied: 'Disalin'
     },
@@ -187,21 +188,21 @@ window.CONTENT = {
       beats: [
         { k: 'Perkenalan', y: '2024',
           t: 'Dua hati, satu pertemuan',
-          b: 'Mereka bertemu kerana kerja — satu kempen raya yang dilakukan bersama demi mengumpul dana untuk orang ramai. Persahabatan itu tumbuh perlahan-lahan, tanpa disedari sesiapa, termasuk mereka berdua.' },
+          b: 'Mereka bertemu kerana kerja, dalam satu kempen raya yang dilakukan bersama demi mengumpul dana untuk orang ramai. Persahabatan itu tumbuh perlahan-lahan, tanpa disedari sesiapa, termasuk mereka berdua.' },
         { k: 'Lamaran', y: 'Januari 2026',
           t: 'Di puncak Gunung Kinabalu',
           b: 'Selepas mendaki sepanjang malam, dalam hujan lebat dan kesejukan puncak, dia melutut dan bertanya. Bella berkata "ya" dalam beberapa saat sahaja.' },
         { k: 'Pertunangan', y: '28 Mac 2026',
           t: 'Bertunang di bulan Syawal',
-          b: 'Dua keluarga bertemu buat kali pertama sebagai satu. Cincin disarungkan oleh bonda pengantin lelaki, dan hantaran dibawa dengan tema masa hadapan — termasuk simpanan pendidikan buat Ayden dan Ara.' },
+          b: 'Dua keluarga bertemu buat kali pertama sebagai satu. Cincin disarungkan oleh bonda pengantin lelaki, dan hantaran dibawa dengan tema masa hadapan, termasuk simpanan pendidikan buat Ayden dan Ara.' },
         { k: 'Pernikahan', y: '10 Oktober 2026',
           t: 'Satu permulaan kebahagiaan',
-          b: 'Tarikh dipilih kerana susunan nombornya yang cantik, dan kerana bulan kesepuluh menandakan permulaan hidup baharu bagi mereka berdua — bersama Ayden dan Ara.' }
+          b: 'Tarikh dipilih kerana susunan nombornya yang cantik, dan kerana bulan kesepuluh menandakan permulaan hidup baharu bagi mereka berdua, bersama Ayden dan Ara.' }
       ],
       pull: {
         q: 'Dua keluarga, satu doa, dan satu hari yang telah lama dinanti.',
         a: 'Sabtu, 10 Oktober 2026',
-        q2: 'Sepuluh bulan kesepuluh — permulaan sebuah rumah tangga.',
+        q2: 'Sepuluh bulan kesepuluh, permulaan sebuah rumah tangga.',
         a2: '10 . 10 . 2026'
       }
     },
@@ -222,7 +223,7 @@ window.CONTENT = {
       title: 'Panduan Tetamu',
       lead: 'Beberapa perkara kecil yang memudahkan perjalanan tuan/puan pada hari itu.',
       items: [
-        { t: 'Dengan MRT', b: 'Stesen Merdeka (Laluan Kajang, KG17) terletak betul-betul di sebelah menara. Gunakan Pintu Masuk B di bahagian selatan — ia paling hampir dengan lobi.' },
+        { t: 'Dengan MRT', b: 'Stesen Merdeka (Laluan Kajang, KG17) terletak betul-betul di sebelah menara. Gunakan Pintu Masuk B di bahagian selatan kerana ia paling hampir dengan lobi.' },
         { t: 'Dengan kereta', b: 'Terowong Belfield dari Jalan Syed Putra atau Jalan Damansara membawa terus ke Aras Bawah Tanah 4. Tempat letak kereta disediakan di dalam presint.' },
         { t: 'Ketibaan', b: 'Perjalanan dari lobi ke aras 118 mengambil sedikit masa. Waktu ketibaan yang disyorkan akan dimaklumkan bersama waktu akad.' },
         { t: 'Penginapan', b: 'Park Hyatt Kuala Lumpur terletak di dalam menara yang sama, dengan lobi di aras 75. Terdapat juga beberapa hotel berdekatan di sekitar Chinatown dan Bukit Bintang.' },
@@ -305,7 +306,7 @@ window.CONTENT = {
   /* ========================================================================== */
   en: {
     meta: {
-      title: 'Syed Saddiq & Bella Astillah — 10.10.2026',
+      title: 'Syed Saddiq & Bella Astillah · 10.10.2026',
       desc: 'With gratitude, we invite you to our wedding. Saturday, 10 October 2026 · Level 118, Menara Merdeka Maybank, Kuala Lumpur.'
     },
     paper: {
@@ -322,7 +323,8 @@ window.CONTENT = {
       date: 'Date', time: 'Time', venue: 'Venue', dress: 'Dress', place: 'Location',
       googleMaps: 'Google Maps', waze: 'Waze', addToCalendar: 'Add to calendar',
       googleCalendar: 'Open Google Calendar', open: 'Open Invitation', openHint: 'Tap to open',
-      music: 'Music', to: 'Especially for', and: 'and', invitationOnly: 'By personal invitation',
+      music: 'Music', musicOn: 'Background music: on', musicOff: 'Background music: off',
+      to: 'Especially for', and: 'and', invitationOnly: 'By personal invitation',
       detailsToFollow: 'Details to follow', provisional: 'Provisional running order',
       backToTop: 'Back to top', copy: 'Copy', copied: 'Copied'
     },
@@ -352,28 +354,28 @@ window.CONTENT = {
       beats: [
         { k: 'How it began', y: '2024',
           t: 'Two hearts, one meeting',
-          b: 'They met through work — a festive campaign they took on together to raise funds for people who needed it. The friendship grew quietly, unnoticed by everyone, including the two of them.' },
+          b: 'They met through work, on a festive campaign they took on together to raise funds for people who needed it. The friendship grew quietly, unnoticed by everyone, including the two of them.' },
         { k: 'The proposal', y: 'January 2026',
           t: 'At the summit of Mount Kinabalu',
           b: 'After climbing through the night, in heavy rain and the cold of the summit, he knelt and asked. Bella said yes within seconds.' },
         { k: 'The engagement', y: '28 March 2026',
           t: 'Betrothed in the month of Syawal',
-          b: 'Two families met for the first time as one. The ring was placed by the groom’s mother, and the gift trays were themed around the future — including education savings for Ayden and Ara.' },
+          b: 'Two families met for the first time as one. The ring was placed by the groom’s mother, and the gift trays were themed around the future, including education savings for Ayden and Ara.' },
         { k: 'The wedding', y: '10 October 2026',
           t: 'A beginning of happiness',
-          b: 'The date was chosen for the beauty of its numbers, and because the tenth month marks the start of a new life for them both — together with Ayden and Ara.' }
+          b: 'The date was chosen for the beauty of its numbers, and because the tenth month marks the start of a new life for them both, together with Ayden and Ara.' }
       ],
       pull: {
         q: 'Two families, one prayer, and a day long awaited.',
         a: 'Saturday, 10 October 2026',
-        q2: 'The tenth day of the tenth month — the beginning of a household.',
+        q2: 'The tenth day of the tenth month, the beginning of a household.',
         a2: '10 . 10 . 2026'
       }
     },
     family: {
       title: 'All Four of Us',
       headline: 'A family that had already quietly formed',
-      body: 'Ayden and Ara have been part of this story from the very beginning. This day does not only join two people — it celebrates a family that has already quietly formed.',
+      body: 'Ayden and Ara have been part of this story from the very beginning. This day does not only join two people. It celebrates a family that has already quietly formed.',
       quote: 'A family that formed long ago, now bound by a marriage.',
       by: 'Berempat'
     },
@@ -387,7 +389,7 @@ window.CONTENT = {
       title: 'Guest Guide',
       lead: 'A few small things to make your journey easy on the day.',
       items: [
-        { t: 'By MRT', b: 'Merdeka station (Kajang Line, KG17) sits directly beside the tower. Use Entrance B on the south side — it is closest to the lobby.' },
+        { t: 'By MRT', b: 'Merdeka station (Kajang Line, KG17) sits directly beside the tower. Use Entrance B on the south side, which is closest to the lobby.' },
         { t: 'By car', b: 'The Belfield Tunnel from Jalan Syed Putra or Jalan Damansara brings you straight into Basement 4. Parking is available within the precinct.' },
         { t: 'Arrival', b: 'The journey from the lobby up to level 118 takes a little time. A suggested arrival time will be announced together with the akad time.' },
         { t: 'Staying over', b: 'Park Hyatt Kuala Lumpur is inside the same tower, with its lobby on level 75. There are also several hotels a short walk away around Chinatown and Bukit Bintang.' },
