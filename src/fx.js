@@ -320,8 +320,11 @@
       p.x = Math.random() * w;
       p.y = first ? Math.random() * h : (dir > 0 ? -60 * dpr : h + 60 * dpr);
       // petal length, scaled to the viewport so they stay petals on a phone
-      // a phone shrank these to specks; a petal should still read as a petal
-      p.s = (16 + Math.random() * 30) * dpr * Math.min(1, Math.max(0.74, (w / dpr) / 900));
+      /* A phone shrank these to specks. The quieter sections carry only a
+         handful of petals, so those are larger still — they are the whole
+         background there, not a drift behind a title. */
+      var floor = (w / dpr) < 700 ? (opts.count && opts.count < 16 ? 1.15 : 0.95) : 0;
+      p.s = (16 + Math.random() * 30) * dpr * Math.max(floor, Math.min(1, (w / dpr) / 900));
       p.v = (0.14 + Math.random() * 0.34) * dpr * drift;   // fall/rise speed
       p.z = 0.45 + Math.random() * 0.55;           // depth: near petals bigger, softer, faster
       p.a = Math.random() * 6.283;                 // spin
@@ -466,7 +469,7 @@
     /* On a narrow screen everything in the background is being read from much
        closer in, so the drift is scaled up rather than left as grit. */
     if (innerWidth < 700) {
-      spec = Object.assign({}, spec, { r: [spec.r[0] * 1.5, spec.r[1] * 1.5] });
+      spec = Object.assign({}, spec, { r: [spec.r[0] * 1.9, spec.r[1] * 1.9] });
     }
     var PETAL_COLS = {
       bloom: ['#EFC9C6', '#E4AEAB', '#F6DCD8', '#E0BE84', '#EAC0BC'],
@@ -605,32 +608,60 @@
   /* details/summary cannot transition its own height, so the open and close are
      driven here: the panel grows from nothing while its text resolves out of a
      blur. Without JavaScript the browser's own open/close still works.        */
+  /* A <details> cannot animate its own height, so it is done by hand — but the
+     end of that animation is never left to transitionend alone. On a phone that
+     event goes missing often enough to matter: a tap followed by a scroll, a
+     backgrounded tab, a throttled frame. When it was missed, the row kept an
+     inline height of 0 while still reporting itself open, so every later tap
+     ran the closing half again and the answer could never be seen. A timer
+     always finishes what the transition started, and every tap repairs the
+     row before it acts. */
   FX.accordion = function () {
     $$('details.faq').forEach(function (d) {
       var sum = d.querySelector('summary'), body = d.querySelector('div');
       if (!sum || !body) return;
+      var busy = false, timer = 0, finish = null;
+
+      function settle(after, ms) {
+        var done = false;
+        finish = function (ev) {
+          if (ev && (ev.target !== body || ev.propertyName !== 'height')) return;
+          if (done) return;
+          done = true;
+          clearTimeout(timer);
+          body.removeEventListener('transitionend', finish);
+          finish = null;
+          busy = false;
+          after();
+        };
+        body.addEventListener('transitionend', finish);
+        timer = setTimeout(finish, ms);
+      }
+
       sum.addEventListener('click', function (e) {
         e.preventDefault();
         if (reduce) { d.open = !d.open; return; }
+        // a second tap mid-animation lands the first one rather than queueing
+        if (busy) { if (finish) finish(); }
+
+        // whatever a missed transition left behind, this row starts clean
+        clearTimeout(timer);
+        if (!d.open) { d.classList.remove('shutting'); body.style.height = ''; }
+        busy = true;
+
         if (d.open) {
           body.style.height = body.scrollHeight + 'px';
           d.classList.add('shutting');
           requestAnimationFrame(function () { body.style.height = '0px'; });
-          body.addEventListener('transitionend', function done(ev) {
-            if (ev.propertyName !== 'height') return;
+          settle(function () {
             d.open = false; d.classList.remove('shutting'); body.style.height = '';
-            body.removeEventListener('transitionend', done);
-          });
+          }, 900);
         } else {
           d.open = true;
           var h = body.scrollHeight;
           body.style.height = '0px';
           requestAnimationFrame(function () { body.style.height = h + 'px'; });
-          body.addEventListener('transitionend', function done(ev) {
-            if (ev.propertyName !== 'height') return;
-            body.style.height = 'auto';
-            body.removeEventListener('transitionend', done);
-          });
+          settle(function () { body.style.height = 'auto'; }, 900);
         }
       });
     });

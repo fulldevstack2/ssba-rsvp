@@ -148,6 +148,17 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 .mute:focus-visible{outline:2px solid var(--accent-ink);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){.mute.is-on .mute__bars i{animation:none}}
 
+/* On a phone the bar has to hold both names as well as the controls, so the
+   controls give up the room rather than the names being cut to an ellipsis. */
+@media (max-width:30rem){
+  .top{gap:.5rem}
+  .top__end{gap:.35rem}
+  .top__mark{font-size:.72rem}
+  .mute{width:1.9rem;height:1.9rem;padding:.35rem}
+  .lang{font-size:.62rem}
+  .top .btn--quiet{padding:.5rem .68rem;font-size:.58rem}
+}
+
 .lang{display:inline-flex;align-items:center;gap:.15rem;font-family:var(--util);font-weight:400;
   font-size:.7rem;letter-spacing:.12em}
 .lang button{background:none;border:0;padding:.45rem .4rem;min-height:40px;color:var(--mute);
@@ -388,7 +399,8 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
   text-transform:uppercase;color:var(--mute)}
 .prog li.is-now b{color:var(--ink)}
 .step{display:grid;gap:1.55rem;border:0;padding:0;margin:0}
-.step__q{font-family:var(--display);font-size:clamp(1.4rem,4.2vw,2rem);line-height:1.18;padding:0}
+.step__q{font-family:var(--display);font-size:clamp(1.4rem,4.2vw,2rem);line-height:1.18;
+  padding:0;margin-bottom:clamp(1.1rem,3.5vw,1.8rem)}
 .step__hint{font-family:var(--util);font-weight:300;font-size:.87rem;color:var(--mute);
   margin-top:-1rem;line-height:1.6}
 .field{display:grid;gap:.48rem}
@@ -593,7 +605,7 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 /* --------------------------------------- II · the two families come in ----- */
 .families__h{font-family:var(--util);font-weight:400;font-size:.66rem;letter-spacing:.3em;
   text-transform:uppercase;color:var(--mute);margin-bottom:clamp(2rem,6vw,3.4rem)}
-.families .hosts{margin-top:0;width:min(62rem,94vw)}
+.families .hosts{margin-top:0;width:min(62rem,100%)}
 .families .hosts__side{opacity:0}
 .families .hosts__side:first-child{transform:translateX(-9vw)}
 .families .hosts__side:last-child {transform:translateX(9vw)}
@@ -625,7 +637,10 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 /* ------------------------------------------- IV · the cards are laid down -- */
 .deal__h{font-family:var(--display);font-size:clamp(1.1rem,2.6vw,1.5rem);letter-spacing:.16em;
   text-transform:uppercase;color:var(--mute);margin-bottom:clamp(2.2rem,6vw,3.6rem)}
-.deal__cards{width:min(76rem,94vw);display:grid;gap:clamp(1rem,2.4vw,1.6rem)}
+/* 94vw measures the viewport, not the space inside the section's gutters, so
+   the column sat 18px wider than its room and read as off-centre. */
+.deal__cards{width:min(76rem,100%);display:grid;grid-template-columns:minmax(0,1fr);
+  gap:clamp(1rem,2.4vw,1.6rem)}
 @media (min-width:56rem){
   .deal__cards{grid-template-columns:repeat(3,1fr)}
   .deal .card--hero{grid-column:1/-1}
@@ -989,6 +1004,11 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
    ran out past both edges of the card, clipped by the card's own overflow.
    It takes the card's width; centring still applies to what is inside it. */
 .deal .card--hero .card__body{align-items:center;width:100%;min-width:0}
+/* A grid item's automatic minimum is its content, so one long line inside a
+   card made the whole column wider than the section's gutters and pushed it
+   off centre. Nothing here may outgrow the space it is given. */
+.deal .act__in,.deal__cards,.deal .card{min-width:0}
+.deal .card__meta dd,.deal .card__title,.deal .card__note{min-width:0;overflow-wrap:anywhere}
 /* align-items:center on the body sizes this to its content, and auto-fit then
    lays out all four tracks at their minimum — 765px of grid inside a 338px
    card, clipped at both edges. It takes the card's width now. */
