@@ -20,8 +20,8 @@ const concepts = [
       'A ceremony in twelve tableaux. Nothing scrolls past — each screen holds one thing, ' +
       'composed edge to edge, and gives way to the next through light rather than motion. ' +
       'Gilt on ivory, and the eight-point khatam is constructed on arrival.',
-    display: 'Cinzel', body: 'Cormorant Garamond', util: 'Manrope', arabic: 'Reem Kufi',
-    fonts: 'https://fonts.googleapis.com/css2?family=Cinzel:wght@400..700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=Reem+Kufi:wght@400..600&family=Amiri:wght@400&display=swap',
+    display: 'Cinzel', body: 'Cormorant Garamond', util: 'Manrope', arabic: 'Amiri',
+    fonts: 'https://fonts.googleapis.com/css2?family=Cinzel:wght@400..700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@300;400;500&family=Amiri:wght@400;700&display=swap',
     themeColor: '#F7F2E9',
     swatches: [
       { name: 'Ivory',     value: '#F7F2E9' },
@@ -29,7 +29,7 @@ const concepts = [
       { name: 'Champagne', value: '#E4D3AE' },
       { name: 'Ink',       value: '#191410' }
     ],
-    arabicClass: 'ar-kufi',
+    arabicClass: 'ar-naskh',
     layers: { light: true, petals: true, spot: false, shadow: false, nacre: false },
     runtime: {
       LIGHT_OPTS: { warm: 'rgba(255,244,214,0.58)', cool: 'rgba(214,180,110,0.30)', fade: 'rgba(247,242,233,0)' },

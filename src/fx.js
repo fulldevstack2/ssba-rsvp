@@ -325,78 +325,51 @@
         en.target.classList.add('played');
         io.unobserve(en.target);
       });
-    }, { threshold: 0.22, rootMargin: '0px 0px -6% 0px' });
+    }, { threshold: 0, rootMargin: '-28% 0px -28% 0px' });
     els.forEach(function (el) {
       // anything already on screen at load plays immediately rather than waiting
-      if (el.getBoundingClientRect().top < innerHeight * 0.9) { el.classList.add('played'); return; }
+      var r = el.getBoundingClientRect();
+      // only what is genuinely on screen at load plays straight away
+      if (r.top < innerHeight * 0.6 && r.bottom > innerHeight * 0.25) { el.classList.add('played'); return; }
       io.observe(el);
     });
     // safety net: never leave a section stuck unplayed
     setTimeout(function () { $$('[data-play]:not(.played)').forEach(function (el) { el.classList.add('played'); }); }, 12000);
   };
 
-  /* --------------------------------------------------------------- snapping */
-  /* CSS proximity snap only engages inside the browser's own small radius, so a
-     short scroll leaves you stranded between two acts. This reads intent
-     instead: a deliberate nudge downward commits to the next act, a nudge back
-     returns to the top of the one you are in.
-
-     Two guards keep it from ever being annoying. An act taller than the screen
-     is not a target, because snapping to its top would keep pulling you off its
-     own content. And it will only jump to the next act if that act is within
-     about a screen and a third — so the long reading stretches (the story, the
-     gatherings, the reply form) are scrolled through freely, not skipped.    */
-  FX.snap = function () {
-    var all = $$('[data-snap]');
-    if (!all.length || reduce) return;
-
-    var idle, locked = false, lockTimer, lastY = scrollY, dir = 1;
-
-    function tops() {
-      var y = scrollY;
-      return all.filter(function (el) { return el.offsetHeight <= innerHeight * 1.12; })
-                .map(function (el) { return Math.round(el.getBoundingClientRect().top + y); });
-    }
-    function lock(ms) {
-      locked = true; clearTimeout(lockTimer);
-      lockTimer = setTimeout(function () { locked = false; }, ms);
-    }
-    function settle() {
-      if (locked) return;
-      var a = document.activeElement;
-      if (a && /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(a.tagName)) return;
-
-      var t = tops(); if (t.length < 2) return;
-      var y = scrollY, vh = innerHeight, i = 0;
-      for (var k = 0; k < t.length; k++) if (t[k] <= y + 2) i = k;
-      var offset = y - t[i], target = i;
-
-      // how far it is to the next act; a long gap means a reading stretch, and
-      // reading stretches are never snapped in either direction
-      var gap = i + 1 < t.length ? t[i + 1] - t[i] : Infinity;
-      var short = gap <= vh * 1.35;
-
-      if (dir > 0) {
-        if (offset <= vh * 0.14) return;              // barely moved: leave it
-        if (!short) return;                           // free scrolling below here
-        target = i + 1 < t.length ? i + 1 : i;
-      } else {
-        if (offset > 2 && short) target = i;          // back to the top of this act
-        else if (offset <= 2 && i > 0) target = i - 1;
-        else return;
-      }
-      if (Math.abs(t[target] - y) < 3) return;
-      lock(820);
-      scrollTo({ top: t[target], behavior: 'smooth' });
-    }
-
-    addEventListener('scroll', function () {
-      var y = scrollY;
-      if (y !== lastY) { dir = y > lastY ? 1 : -1; lastY = y; }
-      clearTimeout(idle);
-      idle = setTimeout(settle, 100);
-    }, { passive: true });
-    addEventListener('hashchange', function () { lock(900); });
+  /* -------------------------------------------------------------- accordion */
+  /* details/summary cannot transition its own height, so the open and close are
+     driven here: the panel grows from nothing while its text resolves out of a
+     blur. Without JavaScript the browser's own open/close still works.        */
+  FX.accordion = function () {
+    $$('details.faq').forEach(function (d) {
+      var sum = d.querySelector('summary'), body = d.querySelector('div');
+      if (!sum || !body) return;
+      sum.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (reduce) { d.open = !d.open; return; }
+        if (d.open) {
+          body.style.height = body.scrollHeight + 'px';
+          d.classList.add('shutting');
+          requestAnimationFrame(function () { body.style.height = '0px'; });
+          body.addEventListener('transitionend', function done(ev) {
+            if (ev.propertyName !== 'height') return;
+            d.open = false; d.classList.remove('shutting'); body.style.height = '';
+            body.removeEventListener('transitionend', done);
+          });
+        } else {
+          d.open = true;
+          var h = body.scrollHeight;
+          body.style.height = '0px';
+          requestAnimationFrame(function () { body.style.height = h + 'px'; });
+          body.addEventListener('transitionend', function done(ev) {
+            if (ev.propertyName !== 'height') return;
+            body.style.height = 'auto';
+            body.removeEventListener('transitionend', done);
+          });
+        }
+      });
+    });
   };
 
   /* -------------------------------------------------------------- boot order */
@@ -406,7 +379,7 @@
     FX.light($('[data-light]'), window.LIGHT_OPTS);
     FX.scroll();
     FX.play();
-    FX.snap();
+    FX.accordion();
     FX.spotlight($('[data-spot]'));
     FX.headerNames();
     FX.petals($('[data-petals]'), window.PETALS || {});

@@ -162,7 +162,7 @@ window.CONTENT = {
       backToTop: 'Ke atas', copy: 'Salin', copied: 'Disalin'
     },
     hero: {
-      eyebrow: 'Walimatul Urus · Kuala Lumpur',
+      eyebrow: 'Walimatul Urus',
       day: 'Sabtu',
       place: 'Aras 118, Menara Merdeka Maybank',
       scroll: 'Tatal',
@@ -329,7 +329,7 @@ window.CONTENT = {
       backToTop: 'Back to top', copy: 'Copy', copied: 'Copied'
     },
     hero: {
-      eyebrow: 'Walimatul Urus · Kuala Lumpur',
+      eyebrow: 'Walimatul Urus',
       day: 'Saturday',
       place: 'Level 118, Menara Merdeka Maybank',
       scroll: 'Scroll',

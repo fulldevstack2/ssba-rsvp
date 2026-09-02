@@ -135,33 +135,51 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 .btn[disabled]{opacity:.45;cursor:progress}
 
 /* ----------------------------------------------------------------- hero --- */
+/* The ground comes up out of focus and settles, and the names resolve into it.
+   The light carries the blur because it is soft to begin with; the petals only
+   fade and drift, which keeps a per-frame canvas off the filter path. */
+.hero .lightwrap{opacity:0;filter:blur(30px);transform:scale(1.06);
+  transition:opacity 1.9s var(--ez) .12s,filter 2.2s var(--ez) .12s,transform 2.4s var(--ez) .12s}
+.ready .hero .lightwrap{opacity:1;filter:blur(0);transform:none}
+.hero .petals{opacity:0;transition:opacity 2.2s var(--ez) .55s}
+.ready .hero .petals{opacity:1}
+
 .hero{position:relative;min-height:100svh;display:grid;place-items:center;isolation:isolate;
   overflow:hidden;padding:clamp(6rem,14vh,9rem) var(--gut) clamp(4rem,10vh,6rem)}
 .hero__in{position:relative;z-index:2;text-align:center;width:100%;display:grid;justify-items:center}
-.hero__ar{font-size:clamp(1.15rem,3.5vw,1.7rem);color:var(--accent-ink);
-  opacity:0;transition:opacity 1.1s var(--ez) 1.4s}
-.ready .hero__ar{opacity:1}
-.hero__eyebrow{margin-top:1.4rem;opacity:0;transition:opacity 1s var(--ez) 1.55s}
+.hero__ar{font-size:clamp(1.3rem,4vw,2rem);color:var(--accent-ink);line-height:2;
+  opacity:0;transform:translateY(.5rem);
+  transition:opacity 1.2s var(--ez) .35s,transform 1.4s var(--ez) .35s}
+.ready .hero__ar{opacity:1;transform:none}
+.hero__eyebrow{margin-top:1.4rem;opacity:0;transition:opacity 1s var(--ez) 1.0s}
 .ready .hero__eyebrow{opacity:1}
 .hero__names{margin-top:clamp(1.6rem,4.5vw,2.8rem);font-family:var(--display);font-weight:400;
   font-size:clamp(2.4rem,10.5vw,7.5rem);line-height:1.02}
 .hero__line{display:block}
 .hero__amp{display:block;font-family:var(--body);font-style:italic;font-weight:300;
   color:var(--accent-ink);font-size:.3em;line-height:1;margin-block:.18em;
-  opacity:0;transition:opacity .9s var(--ez) 1.55s}
+  opacity:0;transition:opacity .9s var(--ez) 1.9s}
 .ready .hero__amp{opacity:1}
 .hero__rule{width:min(26rem,60vw);height:1px;margin-top:clamp(2.2rem,5vw,3.4rem);
   background:linear-gradient(90deg,transparent,var(--line),transparent);
-  transform:scaleX(0);transition:transform 1.6s var(--ez) 1.7s}
+  transform:scaleX(0);transition:transform 1.6s var(--ez) 2.15s}
 .ready .hero__rule{transform:none}
 .hero__meta{margin-top:1.6rem;display:flex;flex-wrap:wrap;justify-content:center;
   gap:.6rem clamp(1rem,4vw,2.6rem);font-family:var(--util);font-weight:300;font-size:.7rem;
-  letter-spacing:.26em;text-transform:uppercase;color:var(--mute);
-  opacity:0;transition:opacity 1s var(--ez) 1.95s}
-.ready .hero__meta{opacity:1}
+  letter-spacing:.26em;text-transform:uppercase;color:var(--mute)}
+/* each part of the date line settles in turn, rather than the whole row at once */
+.hero__meta span{display:inline-block;opacity:0;filter:blur(6px);transform:translateY(.55rem);
+  transition:opacity .85s var(--ez),filter .95s var(--ez),transform 1s var(--ez)}
+.ready .hero__meta span{opacity:1;filter:blur(0);transform:none}
+.ready .hero__meta span:nth-child(1){transition-delay:2.45s}
+.ready .hero__meta span:nth-child(2){transition-delay:2.62s}
+.ready .hero__meta span:nth-child(3){transition-delay:2.79s}
+.ready .hero__meta span:nth-child(4){transition-delay:2.96s}
+.hero__meta b{position:relative}
+
 .hero__meta b{font-weight:500;color:var(--ink)}
 .hero__cue{position:absolute;left:50%;bottom:clamp(1.5rem,4vh,2.5rem);translate:-50% 0;z-index:2;
-  display:grid;justify-items:center;gap:.7rem;opacity:0;transition:opacity 1s var(--ez) 2.2s}
+  display:grid;justify-items:center;gap:.7rem;opacity:0;transition:opacity 1s var(--ez) 3.3s}
 .ready .hero__cue{opacity:1}
 .hero__cue span{font-family:var(--util);font-weight:300;font-size:.56rem;letter-spacing:.3em;
   text-transform:uppercase;color:var(--mute)}
@@ -452,7 +470,7 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
   --display:"Cinzel","Trajan Pro",serif;
   --body:"Cormorant Garamond","Iowan Old Style",Georgia,serif;
   --util:"Manrope","Avenir Next",system-ui,sans-serif;
-  --arabic:"Reem Kufi","Amiri",serif;
+  --arabic:"Amiri","Noto Naskh Arabic",serif;
   --shell:82rem; --measure:36rem;
   --gut:clamp(1.25rem,5vw,4rem);
   --bay:clamp(5rem,14vw,11rem);
@@ -521,32 +539,25 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 .seal .kh-square {--len:3400}
 .seal .kh-star   {--len:4200;stroke-width:2.4}
 .seal .kh-rosette{--len:2600}
-.played .kh-circle {animation:draw .55s var(--ez) .05s both, recede .8s var(--ez) 2.1s forwards}
-.played .kh-mark   {animation:draw .30s var(--ez) .40s both, recede .8s var(--ez) 2.1s forwards}
-.played .kh-radii  {animation:draw .45s var(--ez) .60s both, recede .8s var(--ez) 2.1s forwards}
-.played .kh-square {animation:draw .50s var(--ez) .95s both}
-.played .kh-star   {animation:draw .60s var(--ez) 1.35s both}
-.played .kh-rosette{animation:draw .50s var(--ez) 1.90s both}
+/* one continuous hand: each step begins as the last one lands, and the
+   scaffolding only recedes once the star it was built for is there */
+.played .kh-circle {animation:draw .60s var(--ez) .05s both, recede .9s var(--ez) 2.55s forwards}
+.played .kh-mark   {animation:draw .30s var(--ez) .60s both, recede .9s var(--ez) 2.55s forwards}
+.played .kh-radii  {animation:draw .50s var(--ez) .85s both, recede .9s var(--ez) 2.55s forwards}
+.played .kh-square {animation:draw .50s var(--ez) 1.30s both}
+.played .kh-star   {animation:draw .70s var(--ez) 1.75s both}
+.played .kh-rosette{animation:draw .50s var(--ez) 2.40s both}
 
 .seal__words{position:relative;z-index:1;display:grid;gap:1.1rem;justify-items:center;will-change:opacity,transform;
   max-width:34rem;isolation:isolate;opacity:0;transform:translateY(1.1rem)}
 .seal__words::before{content:"";position:absolute;inset:-22% -28%;z-index:-1;
   background:radial-gradient(56% 50% at 50% 50%,var(--bg) 38%,color-mix(in srgb,var(--bg) 48%,transparent) 70%,transparent 90%)}
-.played .seal__words{animation:riseIn 1s var(--ez) 2.2s forwards}
+/* the words wait until the drawing has finished, never over it */
+.played .seal__words{animation:riseIn 1s var(--ez) 2.95s forwards}
 .seal__ar{font-family:var(--arabic);direction:rtl;font-size:clamp(1.2rem,3.4vw,1.7rem);
   color:var(--accent-ink);line-height:2}
 .seal__lede{font-family:var(--body);font-style:italic;color:var(--ink-2);
   font-size:clamp(1.02rem,2.6vw,1.2rem);line-height:1.7}
-.seal__step{position:absolute;bottom:clamp(1.5rem,4vh,2.6rem);left:0;right:0;
-  display:flex;gap:clamp(.6rem,2vw,1.4rem);justify-content:center;flex-wrap:wrap;
-  font-family:var(--util);font-weight:300;font-size:.55rem;letter-spacing:.26em;text-transform:uppercase}
-.seal__step i{font-style:normal;color:var(--mute);opacity:.28}
-.played .seal__step i:nth-child(1){animation:lit .4s var(--ez) .05s forwards}
-.played .seal__step i:nth-child(2){animation:lit .4s var(--ez) .40s forwards}
-.played .seal__step i:nth-child(3){animation:lit .4s var(--ez) .60s forwards}
-.played .seal__step i:nth-child(4){animation:lit .4s var(--ez) .95s forwards}
-.played .seal__step i:nth-child(5){animation:lit .4s var(--ez) 1.35s forwards}
-.played .seal__step i:nth-child(6){animation:lit .4s var(--ez) 1.90s forwards}
 
 /* On a narrow screen there is no room to set the invitation inside the star, so
    the construction sits above the words instead of behind them. */
@@ -554,8 +565,7 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
   .seal .act__in{gap:clamp(1.8rem,6vw,2.6rem)}
   .seal__art{position:static;translate:none;width:min(56vmin,16rem);margin-inline:auto;opacity:1}
   .seal__words::before{display:none}
-  .seal__step{font-size:.5rem;gap:.5rem}
-}
+  }
 
 /* --------------------------------------- II · the two families come in ----- */
 .families__h{font-family:var(--util);font-weight:400;font-size:.66rem;letter-spacing:.3em;
@@ -624,8 +634,229 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 .verse.played .blessing{animation:riseIn 1s var(--ez) .25s forwards}
 
 @media (prefers-reduced-motion:reduce){
+  .hero .lightwrap,.hero .petals,.hero__meta span{opacity:1;filter:none;transform:none;transition:none}
   .seal__words,.families .hosts__side,.families__kids,.story__h,
   .deal .card,.count .cd__unit,.verse .blessing{opacity:1;transform:none;animation:none}
   .families .hosts__div{transform:none}
   .seal .kh [class^="kh-"]{stroke-dashoffset:0}
+}
+
+/* =============================================================================
+   THE GROUNDS
+   -----------------------------------------------------------------------------
+   Every section has a moving ground of its own, taken from what is actually in
+   the room at a Malay wedding rather than from generic motion:
+
+     silk     light moving slowly across cloth, the way it does over a pelamin
+     songket  the weft of the ceremonial gold-thread cloth, catching the light
+              as it passes — the shared cloth of both families
+     beras    beras kunyit and bunga rampai, drifting the way scattered rice and
+              shredded petals hang in the air after they are thrown
+     bloom    a single soft light that breathes, as a lamp over the dais does
+
+   All four are compositor-only: a transform or a background shift on one
+   layer, no per-frame JavaScript, nothing that can stutter the type.
+   ============================================================================= */
+.act,.bay,.story,.quote{position:relative;isolation:isolate}
+.amb{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.amb::before,.amb::after{content:"";position:absolute;inset:-12%;will-change:transform}
+@media (prefers-reduced-motion:reduce){.amb::before,.amb::after{animation:none!important}}
+
+/* --- silk: two slow lights crossing a cloth ------------------------------- */
+.amb--silk::before{
+  background:radial-gradient(46% 40% at 32% 34%,color-mix(in srgb,var(--accent) 13%,transparent),transparent 70%);
+  animation:silkA 26s ease-in-out infinite alternate}
+.amb--silk::after{
+  background:radial-gradient(52% 44% at 70% 70%,color-mix(in srgb,var(--accent) 9%,transparent),transparent 72%);
+  animation:silkB 34s ease-in-out infinite alternate}
+@keyframes silkA{to{transform:translate3d(6%,4%,0) scale(1.12)}}
+@keyframes silkB{to{transform:translate3d(-7%,-5%,0) scale(1.16)}}
+
+/* --- songket: the weft, and the light travelling along it ----------------- */
+.amb--songket::before{
+  background:repeating-linear-gradient(0deg,transparent 0 7px,
+    color-mix(in srgb,var(--accent) 8%,transparent) 7px 8px);
+  opacity:.55}
+.amb--songket::after{
+  background:linear-gradient(102deg,transparent 42%,
+    color-mix(in srgb,var(--accent) 20%,transparent) 50%,transparent 58%);
+  background-size:240% 100%;background-repeat:repeat;
+  animation:weft 18s linear infinite}
+@keyframes weft{from{background-position:240% 0}to{background-position:-240% 0}}
+
+/* --- beras kunyit: scattered rice and petals still hanging in the air ----- */
+.amb--beras::before{
+  background-image:
+    radial-gradient(circle,color-mix(in srgb,var(--accent) 38%,transparent) 1.1px,transparent 1.8px),
+    radial-gradient(circle,color-mix(in srgb,var(--accent) 22%,transparent) 1px,transparent 1.6px);
+  background-size:46px 62px,71px 89px;
+  background-position:0 0,23px 31px;
+  opacity:.5;
+  animation:beras 34s linear infinite}
+.amb--beras::after{
+  background:radial-gradient(60% 50% at 50% 40%,color-mix(in srgb,var(--accent) 8%,transparent),transparent 72%)}
+@keyframes beras{to{transform:translate3d(-46px,-62px,0)}}
+
+/* --- bloom: one lamp over the dais, breathing ---------------------------- */
+.amb--bloom::before{
+  background:radial-gradient(38% 34% at 50% 46%,color-mix(in srgb,var(--accent) 15%,transparent),transparent 74%);
+  animation:breathe 15s ease-in-out infinite alternate}
+.amb--bloom::after{
+  background:radial-gradient(70% 60% at 50% 50%,transparent 40%,color-mix(in srgb,var(--ink) 5%,transparent) 100%)}
+@keyframes breathe{to{transform:scale(1.14);opacity:.72}}
+
+/* the reading sections keep their grounds well under the type */
+.rsvp .amb,#panduan .amb,#atur .amb,#ucapan .amb{opacity:.55}
+
+/* =============================================================================
+   THE REST OF THE PAGE, HELD TO THE HERO
+   -----------------------------------------------------------------------------
+   One grammar everywhere: nothing appears, everything resolves — out of a blur,
+   from slightly below, in sequence. Then each section gets a set piece of its
+   own on top of that.
+   ============================================================================= */
+@keyframes arrive{to{opacity:1;filter:blur(0);transform:none}}
+@keyframes pop{to{transform:rotate(45deg) scale(1);opacity:1}}
+@keyframes sweep{to{transform:scaleX(1)}}
+
+[data-seq]{opacity:0;filter:blur(9px);transform:translateY(1.3rem)}
+.played [data-seq]{animation:arrive .95s var(--ez) both}
+.played [data-seq]:nth-child(1){animation-delay:0.04s}
+.played [data-seq]:nth-child(2){animation-delay:0.12s}
+.played [data-seq]:nth-child(3){animation-delay:0.21s}
+.played [data-seq]:nth-child(4){animation-delay:0.29s}
+.played [data-seq]:nth-child(5){animation-delay:0.38s}
+.played [data-seq]:nth-child(6){animation-delay:0.47s}
+.played [data-seq]:nth-child(7){animation-delay:0.55s}
+.played [data-seq]:nth-child(8){animation-delay:0.64s}
+.played [data-seq]:nth-child(9){animation-delay:0.72s}
+.played [data-seq]:nth-child(10){animation-delay:0.81s}
+.played [data-seq]:nth-child(11){animation-delay:0.89s}
+.played [data-seq]:nth-child(12){animation-delay:0.98s}
+/* section heads resolve the same way, a beat ahead of their content */
+.head>*{opacity:0;filter:blur(8px);transform:translateY(1rem)}
+.played .head>*{animation:arrive .9s var(--ez) both}
+.played .head>*:nth-child(1){animation-delay:.02s}
+.played .head>*:nth-child(2){animation-delay:.14s}
+.played .head>*:nth-child(3){animation-delay:.26s}
+
+/* --------------------------------------------- the running order draws ---- */
+#atur ol{position:relative;padding-inline-start:3.6rem;margin-top:.5rem}
+#atur ol::before{content:"";position:absolute;inset-inline-start:1.1rem;top:1.9rem;bottom:1.9rem;
+  width:1px;background:linear-gradient(var(--accent),color-mix(in srgb,var(--accent) 18%,transparent));
+  transform:scaleY(0);transform-origin:top}
+.played #atur ol::before{animation:growY 1.8s var(--ez) .25s forwards}
+#atur .run{position:relative;border-bottom:0;padding-block:1.5rem;grid-template-columns:5rem 1fr}
+#atur .run::before{content:"";position:absolute;inset-inline-start:-2.6rem;top:2rem;
+  width:9px;height:9px;border:1px solid var(--accent-ink);background:var(--bg);
+  transform:rotate(45deg) scale(0);opacity:0}
+.played #atur .run::before{animation:pop .55s var(--ez) both}
+.played #atur .run:nth-child(1)::before{animation-delay:.45s}
+.played #atur .run:nth-child(2)::before{animation-delay:.62s}
+.played #atur .run:nth-child(3)::before{animation-delay:.79s}
+.played #atur .run:nth-child(4)::before{animation-delay:.96s}
+.played #atur .run:nth-child(5)::before{animation-delay:1.13s}
+.played #atur .run:nth-child(6)::before{animation-delay:1.30s}
+#atur .run__t{color:var(--accent-ink);letter-spacing:.18em}
+
+/* ------------------------------------------------- the guest notes lift --- */
+.tip{position:relative;border-top:0;padding:1.6rem 1.5rem 1.7rem;background:var(--surface);
+  transition:transform .5s var(--ez),box-shadow .5s var(--ez)}
+.tip::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left}
+.played .tip::before{animation:sweep .9s var(--ez) both}
+.played .tip:nth-child(1)::before{animation-delay:.20s}
+.played .tip:nth-child(2)::before{animation-delay:.30s}
+.played .tip:nth-child(3)::before{animation-delay:.40s}
+.played .tip:nth-child(4)::before{animation-delay:.50s}
+.played .tip:nth-child(5)::before{animation-delay:.60s}
+.played .tip:nth-child(6)::before{animation-delay:.70s}
+.tip:hover{transform:translateY(-3px);box-shadow:0 20px 46px rgba(25,20,16,.08)}
+
+/* ------------------------------------------------------- the accordion ---- */
+.faq{border-bottom:1px solid var(--line-soft);position:relative}
+.faq summary{position:relative;padding:1.4rem 3rem 1.4rem .2rem;transition:color .4s var(--ez),padding-inline-start .4s var(--ez)}
+.faq summary::before{content:"";position:absolute;inset:0 -1rem;background:color-mix(in srgb,var(--accent) 7%,transparent);
+  opacity:0;transition:opacity .4s var(--ez);z-index:-1}
+.faq summary:hover{color:var(--accent-ink);padding-inline-start:.7rem}
+.faq summary:hover::before,.faq[open] summary::before{opacity:1}
+/* the marker is a + that becomes a — */
+.faq summary::after{content:"";position:absolute;right:.55rem;top:50%;width:11px;height:1px;
+  background:var(--accent-ink);transform:none;border:0;transition:background-color .4s}
+.faq summary .mk{position:absolute;right:1.05rem;top:50%;width:1px;height:11px;margin-top:-5px;
+  background:var(--accent-ink);transform:scaleY(1);transition:transform .45s var(--ez)}
+.faq[open] summary .mk{transform:scaleY(0)}
+/* the padding lives on the paragraph: with border-box a height:0 box cannot
+   shrink below its own padding, which left a sliver under every closed row */
+.faq div{padding-bottom:0;overflow:hidden;height:0;opacity:0;filter:blur(6px);
+  transition:height .55s var(--ez),opacity .45s var(--ez) .05s,filter .5s var(--ez) .05s}
+.faq[open] div{opacity:1;filter:blur(0)}
+.faq[open].shutting div{opacity:0;filter:blur(6px);transition:height .5s var(--ez),opacity .3s,filter .3s}
+.faq div>p{padding-bottom:1.5rem;max-width:52ch}
+
+/* ------------------------------------------------------------- the reply -- */
+.rsvp__card{position:relative;overflow:hidden;box-shadow:0 30px 80px rgba(25,20,16,.07)}
+.rsvp__card::before{content:"";position:absolute;inset:-40% -20% auto;height:70%;z-index:-1;
+  background:radial-gradient(50% 60% at 50% 0%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 72%)}
+@keyframes stepIn{from{opacity:0;filter:blur(8px);transform:translateY(1rem)}to{opacity:1;filter:blur(0);transform:none}}
+.step:not([hidden]){animation:stepIn .7s var(--ez) both}
+.step__q{overflow:hidden}
+.prog i{position:relative;background:var(--line-soft);overflow:hidden}
+.prog i::after{content:"";position:absolute;inset:0;background:var(--accent);
+  transform:scaleX(0);transform-origin:left;transition:transform .65s var(--ez)}
+.prog li.is-now i::after,.prog li.is-done i::after{transform:scaleX(1)}
+/* the underline draws itself as you enter a field */
+.field input,.field textarea{
+  background-image:linear-gradient(var(--accent-ink),var(--accent-ink));
+  background-repeat:no-repeat;background-position:0 100%;background-size:0% 1px;
+  transition:background-size .55s var(--ez),border-color .4s var(--ez)}
+.field input:focus,.field textarea:focus{background-size:100% 1px}
+.choice{transition:border-color .4s var(--ez),background-color .4s var(--ez),transform .4s var(--ez)}
+.choice:hover{transform:translateX(3px)}
+.btn{transition:color .5s var(--ez),border-color .5s var(--ez),transform .35s var(--ez)}
+.btn:hover{transform:translateY(-2px)}
+/* the confirmation blooms, and the seal draws again */
+#rsvp-success:not([hidden]){animation:stepIn .8s var(--ez) both}
+.success__kh .kh [class^="kh-"]{stroke-dasharray:var(--len);stroke-dashoffset:var(--len)}
+.success__kh .kh-circle{--len:3400}.success__kh .kh-mark{--len:160}
+.success__kh .kh-radii{--len:2600}.success__kh .kh-square{--len:3400}
+.success__kh .kh-star{--len:4200}.success__kh .kh-rosette{--len:2600}
+#rsvp-success:not([hidden]) .kh-circle {animation:draw .5s var(--ez) .25s both}
+#rsvp-success:not([hidden]) .kh-mark   {animation:draw .3s var(--ez) .55s both}
+#rsvp-success:not([hidden]) .kh-radii  {animation:draw .4s var(--ez) .70s both}
+#rsvp-success:not([hidden]) .kh-square {animation:draw .4s var(--ez) 1.00s both}
+#rsvp-success:not([hidden]) .kh-star   {animation:draw .5s var(--ez) 1.30s both}
+#rsvp-success:not([hidden]) .kh-rosette{animation:draw .4s var(--ez) 1.75s both}
+
+/* ------------------------------------------------------------ the wishes -- */
+.wish{transition:transform .5s var(--ez),box-shadow .5s var(--ez)}
+.wish:hover{transform:translateY(-4px);box-shadow:0 22px 50px rgba(25,20,16,.08)}
+.wish__text{position:relative;padding-inline-start:1.1rem}
+.wish__text::before{content:"\\201C";position:absolute;left:-.1rem;top:-.35rem;
+  font-family:var(--display);font-size:2rem;color:color-mix(in srgb,var(--accent) 45%,transparent)}
+
+/* ------------------------------------------------------------- the quote -- */
+.quote{position:relative;overflow:hidden}
+.quote q{opacity:0;filter:blur(12px);transform:translateY(1.4rem)}
+.played .quote q,.quote.played q{animation:arrive 1.2s var(--ez) .1s both}
+.quote cite{opacity:0}
+.played .quote cite,.quote.played cite{animation:arrive .9s var(--ez) .75s both}
+
+/* ------------------------------------------------------------ the footer -- */
+.foot{position:relative;overflow:hidden}
+.foot__kh{animation:breathe 18s ease-in-out infinite alternate}
+.foot__thanks,.foot__names,.foot__hash,.foot__acts,.foot__credit{
+  opacity:0;filter:blur(8px);transform:translateY(1.1rem)}
+.foot.played .foot__thanks{animation:arrive .9s var(--ez) .05s both}
+.foot.played .foot__names {animation:arrive 1.1s var(--ez) .22s both}
+.foot.played .foot__hash  {animation:arrive .9s var(--ez) .42s both}
+.foot.played .foot__acts  {animation:arrive .9s var(--ez) .58s both}
+.foot.played .foot__credit{animation:arrive .9s var(--ez) .74s both}
+
+@media (prefers-reduced-motion:reduce){
+  [data-seq],.head>*,.quote q,.quote cite,
+  .foot__thanks,.foot__names,.foot__hash,.foot__acts,.foot__credit{
+    opacity:1!important;filter:none!important;transform:none!important;animation:none!important}
+  .faq div{height:auto;opacity:1;filter:none}
+  .faq:not([open]) div{display:none}
 }

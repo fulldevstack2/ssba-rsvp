@@ -117,7 +117,7 @@
     var host = $('[data-story-beats]'); if (!host) return;
     var beats = t('story.beats') || [];
     host.innerHTML = beats.map(function (b, i) {
-      return '<article class="beat" data-rise>' +
+      return '<article class="beat" data-seq>' +
         '<div class="beat__art">' +
           // PHOTO SLOT — set --img on .plate__img to a photograph and the
           // constructed geometry behind it simply stops showing through.
@@ -155,7 +155,7 @@
       if (ev.start) acts.push('<button class="btn btn--quiet" type="button" data-ics="' + ev.id + '">' + esc(t('labels.addToCalendar')) + '</button>');
       var tag = ev.invitationOnly ? t('labels.invitationOnly') : (ev.tbc ? t('labels.detailsToFollow') : '');
 
-      return '<article class="card' + (ev.kind === 'primary' ? ' card--hero' : '') + (ev.tbc ? ' card--tbc' : '') + '" data-ev="' + ev.id + '">' +
+      return '<article class="card' + (ev.kind === 'primary' ? ' card--hero' : '') + (ev.tbc ? ' card--tbc' : '') + '" data-ev="' + ev.id + '" data-seq>' +
         '<p class="card__no">' + String(i + 1).padStart(2, '0') + ' <span>/</span> ' + String(all.length).padStart(2, '0') + '</p>' +
         '<header><p class="card__eyebrow">' + esc(pick(ev.eyebrow)) + '</p>' +
         '<h3 class="card__title">' + esc(pick(ev.title)) + '</h3></header>' +
@@ -178,7 +178,7 @@
   function renderSchedule() {
     var host = $('[data-schedule]'); if (!host) return;
     host.innerHTML = (C.schedule || []).map(function (x) {
-      return '<li class="run"><span class="run__t">' + esc(x.time) + '</span>' +
+      return '<li class="run" data-seq><span class="run__t">' + esc(x.time) + '</span>' +
         '<span class="run__b"><b>' + esc(pick(x.title)) + '</b>' +
         (x.desc ? '<span>' + esc(pick(x.desc)) + '</span>' : '') + '</span></li>';
     }).join('');
@@ -187,14 +187,14 @@
   function renderTravel() {
     var host = $('[data-travel]'); if (!host) return;
     host.innerHTML = (t('travel.items') || []).map(function (i) {
-      return '<div class="tip"><h3>' + esc(i.t) + '</h3><p>' + esc(i.b) + '</p></div>';
+      return '<div class="tip" data-seq><h3>' + esc(i.t) + '</h3><p>' + esc(i.b) + '</p></div>';
     }).join('');
   }
 
   function renderFaq() {
     var host = $('[data-faq]'); if (!host) return;
     host.innerHTML = (t('faq.items') || []).map(function (i) {
-      return '<details class="faq"><summary>' + esc(i.q) + '</summary><div><p>' + esc(i.a) + '</p></div></details>';
+      return '<details class="faq" data-seq><summary>' + esc(i.q) + '<span class="mk" aria-hidden="true"></span></summary><div><p>' + esc(i.a) + '</p></div></details>';
     }).join('');
   }
 
@@ -561,7 +561,7 @@
     var seeds = (C.seedWishes || []).map(function (w) { return { name: w.name, wish: pick(w.wish), seed: true }; });
     var all = wishes.concat(seeds).slice(0, 12);
     host.innerHTML = all.map(function (w) {
-      return '<li class="wish' + (w.seed ? ' wish--seed' : '') + '">' +
+      return '<li class="wish' + (w.seed ? ' wish--seed' : '') + '" data-seq>' +
         '<p class="wish__text">' + esc(w.wish) + '</p>' +
         '<p class="wish__by">' + esc(w.name) + (w.seed ? ' <span class="wish__tag">' + esc(t('wishes.example')) + '</span>' : '') + '</p>' +
       '</li>';
