@@ -53,7 +53,7 @@
 <main id="main" tabindex="-1">
 
   <!-- ============================================================= HERO === -->
-  <section class="hero" id="top">
+  <section class="hero" id="top" data-snap>
 {{heroLayers}}
     <div class="hero__in">
       <p class="hero__ar {{arabicClass}}" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
@@ -79,7 +79,7 @@
   <!-- ================================================== STAGE · THE SEAL === -->
   <!-- The khatam is not pasted on. It is constructed the way the pattern is
        really made, and the scroll is what draws it. -->
-  <section class="act seal" data-play id="jemputan">
+  <section class="act seal" data-play data-snap id="jemputan">
     <div class="act__in">
       <div class="seal__art">{{khatam:640}}</div>
       <div class="seal__words">
@@ -94,7 +94,7 @@
   </section>
 
   <!-- ================================================ STAGE · TWO FAMILIES = -->
-  <section class="act families" data-play>
+  <section class="act families" data-play data-snap>
     <div class="act__in">
       <p class="families__h" data-i18n="hostsBlock.title"></p>
       <div class="hosts" data-hosts></div>
@@ -121,7 +121,7 @@
 
   <!-- ================================================= STAGE · THE MAJLIS == -->
   <!-- Four gatherings dealt out one at a time, like cards laid on a table. -->
-  <section class="act deal" data-play id="majlis">
+  <section class="act deal" data-play data-snap id="majlis">
     <div class="act__in">
       <p class="deal__h" data-i18n="events.title"></p>
       <div class="deal__cards" data-events></div>
@@ -129,7 +129,7 @@
   </section>
 
   <!-- ================================================== STAGE · THE COUNT == -->
-  <section class="act count" data-play>
+  <section class="act count" data-play data-snap>
     <div class="act__in">
       <p class="count__h" data-i18n="countdown.title"></p>
       <div class="cd" data-countdown></div>
@@ -284,7 +284,7 @@
   </section>
 
   <!-- ================================================= STAGE · THE VERSE == -->
-  <section class="act verse" data-play>
+  <section class="act verse" data-play data-snap>
     <div class="act__in">
       <p class="verse__h" data-i18n="gift.title"></p>
       <p class="verse__gift" data-i18n="gift.body"></p>

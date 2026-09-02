@@ -488,17 +488,13 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
    happens on its own, you scroll on. Every animation is keyed off `.played`,
    so a section that never gets observed simply sits finished.
    ============================================================================= */
-/* Proximity snap, not mandatory: the full-screen acts settle into place, while
-   the long reading sections (RSVP, guest notes) stay free to scroll normally. */
-html{scroll-snap-type:y proximity;scroll-padding-top:0}
-.hero,.act{scroll-snap-align:start}
-@media (prefers-reduced-motion:reduce){html{scroll-snap-type:none}}
+/* Snapping is driven from fx.js rather than CSS: proximity only engages inside
+   the browser's own small radius, which is what made a short scroll leave you
+   between two acts. See FX.snap. */
 
 .act{min-height:100svh;display:grid;place-items:center;position:relative;
   overflow-x:clip;padding:clamp(4.5rem,11vh,8rem) var(--gut)}
-/* an act taller than the screen must not try to snap its top out of reach */
-.act:has(.deal__cards){scroll-snap-align:none}
-@media (min-width:56rem){.act:has(.deal__cards){scroll-snap-align:start}}
+
 /* only the seal needs to clip: its construction is drawn larger than the frame */
 .seal{overflow:hidden}
 .act__in{position:relative;width:100%;display:grid;justify-items:center;text-align:center}
