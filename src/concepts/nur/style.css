@@ -168,7 +168,9 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 .hero{position:relative;min-height:100svh;display:grid;place-items:center;isolation:isolate;
   overflow:hidden;padding:clamp(6rem,14vh,9rem) var(--gut) clamp(4rem,10vh,6rem)}
 .hero__in{position:relative;z-index:2;text-align:center;width:100%;display:grid;justify-items:center}
-.hero__ar{font-size:clamp(1.3rem,4vw,2rem);color:var(--accent-ink);line-height:2;
+/* the invocation is set in the same gold the names are, not in the darker
+   ornament ink — and large enough that the lighter gold still carries it */
+.hero__ar{font-size:clamp(1.5rem,4vw,2rem);color:var(--gilt);line-height:2;
   opacity:0;transform:translateY(.5rem);
   transition:opacity 1.2s var(--ez) .35s,transform 1.4s var(--ez) .35s}
 .ready .hero__ar{opacity:1;transform:none}
@@ -504,12 +506,13 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
   --bay:clamp(5rem,14vw,11rem);
   --ez:cubic-bezier(.16,1,.3,1);
   /* gilt that catches the light as it travels */
-  /* Gold and light, never gold and near-black. The darkest stop is an antique
-     gold that still clears 3:1 on the ivory at display sizes; the band that
-     travels across it is champagne, not white, so the letters keep their
-     weight while the sheen passes. */
-  --foil:linear-gradient(100deg,#9A7A33 0%,#9A7A33 24%,#AD8C46 36%,
-    #D5BD86 47%,#F0E4C2 50%,#D5BD86 53%,#AD8C46 64%,#9A7A33 78%,#9A7A33 100%);
+  /* Gold and light, never gold and near-black — and the travelling band is a
+     champagne rather than a white one. A near-white highlight looked like
+     glare and took the letters with it; the range here is narrow enough that
+     the word stays a word the whole time the sheen crosses it. */
+  --gilt:#9F7F38;          /* 3.35:1 on the ivory — the letters' true colour */
+  --foil:linear-gradient(100deg,#9F7F38 0%,#9F7F38 26%,#AC8C4A 38%,
+    #BCA063 47%,#C9AF74 50%,#BCA063 53%,#AC8C4A 62%,#9F7F38 76%,#9F7F38 100%);
   --foil-tile:46rem; --foil-shift:-46rem; --foil-speed:30s;
   --foot-bg:#F1E8D8; --foot-ink:#4A3F2E;
 }
@@ -1207,7 +1210,7 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 @keyframes rake{from{transform:translate3d(-16%,0,0)}to{transform:translate3d(16%,0,0)}}
 
 .leaf__ar{position:relative;font-family:var(--arabic);direction:rtl;
-  font-size:clamp(1.5rem,5vw,2.5rem);line-height:2.1;color:var(--accent-ink);
+  font-size:clamp(1.5rem,5vw,2.5rem);line-height:2.1;color:var(--gilt);
   opacity:0;transform:translateY(.7rem);
   transition:opacity 1.1s var(--ez) 1.05s,transform 1.2s var(--ez) 1.05s}
 .leaf.played .leaf__ar{opacity:1;transform:none}
