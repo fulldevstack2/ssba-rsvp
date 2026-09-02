@@ -1,0 +1,48 @@
+/* 04 — MUTIARA · Mother-of-pearl
+   A pearl-inlaid box, and a length of white silk. Pearl rather than ivory, and
+   instead of gold the nacre's own iridescence — pale blue, shell pink, sea
+   green — travelling slowly across the names. A high-contrast fashion serif,
+   set enormous, on silk-soft gradients. */
+:root{
+  --bg:#F6F4F1; --bg-2:#EFECE8; --bg-3:#E5E1DD; --surface:#FCFBFA;
+  --ink:#201C1A; --ink-2:#4A423E; --mute:#6E645E;
+  --line:rgba(32,28,26,.18); --line-soft:rgba(32,28,26,.08);
+  --accent:#C9A24A; --accent-ink:#7C6538;   /* 5.5:1 on pearl */
+  --bad:#9E3F26;
+  --display:"Bodoni Moda","Didot",serif;
+  --body:"Cormorant Garamond","Iowan Old Style",Georgia,serif;
+  --util:"Jost","Futura",system-ui,sans-serif;
+  --arabic:"Amiri","Noto Naskh Arabic",serif;
+  --shell:80rem; --measure:36rem;
+  --gut:clamp(1.25rem,5vw,4rem);
+  --bay:clamp(5rem,14vw,11rem);
+  --ez:cubic-bezier(.16,1,.3,1);
+  /* nacre: the shell's own colours, not metal */
+  --foil:linear-gradient(104deg,#8C7F86 0%,#9F8793 12%,#7491A1 26%,#BB7B8F 38%,
+    #6F9682 50%,#B3844B 62%,#7C8FA5 76%,#8C7F86 100%);
+  --foot-bg:#201C1A; --foot-ink:#F6F4F1;
+}
+body{background-image:
+  radial-gradient(110% 70% at 78% 6%,rgba(226,236,240,.7),transparent 58%),
+  radial-gradient(90% 60% at 8% 96%,rgba(239,220,224,.55),transparent 60%)}
+[data-grain]{opacity:.3}
+
+/* the shell sheen drifting over the whole page, very slow, very faint */
+.nacre{position:absolute;inset:0;z-index:0;pointer-events:none;mix-blend-mode:screen;opacity:.5;
+  background:
+    conic-gradient(from 210deg at 30% 40%,rgba(180,206,216,.5),rgba(238,214,220,.45),
+      rgba(214,226,208,.42),rgba(226,214,196,.45),rgba(180,206,216,.5));
+  filter:blur(46px);
+  animation:nacre 34s ease-in-out infinite alternate}
+@keyframes nacre{
+  from{transform:translate3d(-4%,-3%,0) scale(1.06) rotate(0deg)}
+  to  {transform:translate3d(5%,4%,0)  scale(1.16) rotate(8deg)}}
+@media (prefers-reduced-motion:reduce){.nacre{animation:none}}
+
+.hero__names{font-size:clamp(2.5rem,11vw,8.4rem);line-height:.96;letter-spacing:-.015em}
+.hero__amp{font-size:.32em;color:var(--accent)}
+.head__title{font-size:clamp(2.2rem,7vw,4.2rem)}
+.pullbig q{font-size:clamp(1.9rem,5.6vw,4rem)}
+/* couture: hairline rules and a lot of air */
+.card{border-color:var(--line-soft);background:var(--surface)}
+.tip{border-top-width:1px}

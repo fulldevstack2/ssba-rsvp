@@ -1,0 +1,47 @@
+/* 02 — KERTAS · Ink on paper
+   A broadsheet folded once, and a seal stamped in red. No gold anywhere; the
+   only accent is lacquer. Left-aligned, with the sections numbered in the
+   margin the way a printed programme numbers its movements. */
+:root{
+  --bg:#F1ECDE; --bg-2:#E8E1D3; --bg-3:#DED7C8; --surface:#F8F5EC;
+  --ink:#2B3530; --ink-2:#534C3E; --mute:#6A6153;
+  --line:rgba(43,53,48,.26); --line-soft:rgba(43,53,48,.11);
+  --accent:#A62A23; --accent-ink:#A62A23;   /* 6.0:1 on paper */
+  --bad:#8E241E;
+  --display:"Playfair","Playfair Display",Didot,serif;
+  --body:"Newsreader","Iowan Old Style",Georgia,serif;
+  --util:"Instrument Sans",system-ui,sans-serif;
+  --arabic:"Aref Ruqaa","Amiri",serif;
+  --shell:88rem; --measure:34rem;
+  --gut:clamp(1.25rem,5vw,4.5rem);
+  --bay:clamp(5.5rem,15vw,12rem);
+  --ez:cubic-bezier(.16,1,.3,1);
+  --foil:none;
+  --foot-bg:#2B3530; --foot-ink:#F1ECDE;
+}
+/* the display face at an optical size where its hairlines almost vanish */
+.hero__names,.head__title,.card__title,.beat__title,.pullbig q,.foot__names{
+  font-variation-settings:"opsz" 1200;letter-spacing:-.018em}
+.hero__names{font-size:clamp(2.6rem,13vw,12rem);line-height:1.0}
+.foil{background:none;-webkit-background-clip:border-box;background-clip:border-box;
+  color:var(--ink);animation:none}
+/* everything left-aligned: this is a page, not a card */
+.hero{place-items:center start;text-align:left}
+.hero__in{text-align:left;justify-items:start}
+.hero__meta{justify-content:flex-start}
+.hero__rule{margin-inline:0}
+.head{text-align:left;justify-items:start}
+.head__lead{margin-inline:0}
+.invite,.blessing,.pullbig,.success,.note{text-align:left}
+.blessing,.success{justify-items:start}
+.pullbig q,.head__lead,.blessing .sacred__meaning{margin-inline:0}
+.rsvp__dl{text-align:left}
+/* the sections number themselves in the margin */
+body{counter-reset:bay}
+.bay{counter-increment:bay}
+.bay .head{position:relative}
+@media (min-width:64rem){
+  .bay .head::before{content:counter(bay,decimal-leading-zero);
+    position:absolute;left:-4.5rem;top:.4rem;font-family:var(--util);font-weight:400;
+    font-size:.72rem;letter-spacing:.14em;color:var(--mute)}
+}

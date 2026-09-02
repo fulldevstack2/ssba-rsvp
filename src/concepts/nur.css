@@ -1,0 +1,28 @@
+/* 01 — NUR · Gilded daylight
+   A gilded ivory card held up to a window. Ivory lit by a slow caustic light,
+   one weight of gilt, inscriptional capitals, petals rising on the updraft. */
+:root{
+  --bg:#F7F2E9; --bg-2:#F1E8D8; --bg-3:#E9DEC8; --surface:#FCFAF4;
+  --ink:#191410; --ink-2:#463A2B; --mute:#6B5C44;
+  --line:rgba(110,86,40,.22); --line-soft:rgba(110,86,40,.10);
+  --accent:#A8895A;        /* drawn ornament */
+  --accent-ink:#7D6633;    /* 4.9:1 on ivory */
+  --bad:#9E3F26;
+  --display:"Cinzel","Trajan Pro",serif;
+  --body:"Cormorant Garamond","Iowan Old Style",Georgia,serif;
+  --util:"Manrope","Avenir Next",system-ui,sans-serif;
+  --arabic:"Reem Kufi","Amiri",serif;
+  --shell:82rem; --measure:36rem;
+  --gut:clamp(1.25rem,5vw,4rem);
+  --bay:clamp(5rem,14vw,11rem);
+  --ez:cubic-bezier(.16,1,.3,1);
+  /* gilt that catches the light as it travels */
+  --foil:linear-gradient(100deg,#6B5322 0%,#7E6733 14%,#A68758 26%,#AB8739 40%,
+    #AA874B 52%,#A68758 66%,#7E6733 84%,#6B5322 100%);
+  --foot-bg:#191410; --foot-ink:#F7F2E9;
+}
+.hero__names{letter-spacing:.06em;text-transform:uppercase;font-size:clamp(1.9rem,8.4vw,6rem);line-height:1.12}
+.hero__amp{font-size:.34em;text-transform:none;letter-spacing:0}
+.head__title{letter-spacing:.05em;text-transform:uppercase;font-size:clamp(1.8rem,5.6vw,3.2rem)}
+.card__title,.beat__title{letter-spacing:.03em;text-transform:uppercase}
+.pullbig q{letter-spacing:.03em;text-transform:uppercase;font-size:clamp(1.5rem,4.4vw,3rem)}

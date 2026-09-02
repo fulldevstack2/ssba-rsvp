@@ -146,6 +146,9 @@
         bar.style.transform = 'scaleX(' + (max > 0 ? scrollY / max : 0) + ')';
       }
       root.classList.toggle('is-scrolled', scrollY > innerHeight * 0.6);
+      // 0 at the top of the page, 1 at the bottom. Kapur moves its sun with it.
+      var span = document.body.scrollHeight - innerHeight;
+      root.style.setProperty('--sun', span > 0 ? (scrollY / span).toFixed(4) : '0');
     }
     addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
     addEventListener('resize', update, { passive: true });

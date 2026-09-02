@@ -3,7 +3,8 @@ const { chromium } = require('playwright');
 const path = require('node:path');
 (async () => {
   const browser = await chromium.launch();
-  for (const file of ['design-a/index.html', 'design-b/index.html']) {
+  const { concepts } = require('../src/concepts.cjs');
+  for (const file of concepts.map((c) => `design/${c.id}/index.html`)) {
     const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, reducedMotion: 'reduce' });
     const page = await ctx.newPage();
     const errs = [];
