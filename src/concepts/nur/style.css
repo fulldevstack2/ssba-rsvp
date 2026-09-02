@@ -903,19 +903,21 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 /* Each beat is a spread, not a row: the year is set enormous and faint behind
    the title, and the plate overlaps the column so the two share an edge. */
 .story__beats{gap:clamp(6rem,16vw,13rem)}
-.story .beat{grid-template-columns:1fr;gap:clamp(2rem,5vw,3.2rem);position:relative}
+.story .beat{grid-template-columns:1fr;gap:clamp(2rem,5vw,3.2rem);position:relative;overflow-x:clip}
 @media (min-width:58rem){
   .story .beat{grid-template-columns:1.05fr .95fr;gap:clamp(3rem,7vw,6rem);align-items:center}
   .story .beat:nth-child(even) .beat__art{order:2}
   .story .beat:nth-child(odd) .beat__body{padding-inline-end:clamp(0rem,3vw,3rem)}
   .story .beat:nth-child(even) .beat__body{padding-inline-start:clamp(0rem,3vw,3rem)}
 }
-.story .beat__body{position:relative;isolation:isolate}
+/* the year is a watermark, so it is trimmed to its own column rather than
+   pushing the page sideways */
+.story .beat__body{position:relative;isolation:isolate;overflow-x:clip}
 .story .beat__kick{gap:1.1rem;align-items:center}
 .story .beat__kick em{font-size:.6rem;letter-spacing:.3em}
 /* the year, set as a watermark behind its own beat */
-.story .beat__kick i{position:absolute;top:-.35em;inset-inline-start:-.06em;z-index:-1;
-  font-family:var(--display);font-size:clamp(5rem,13vw,10rem);line-height:1;letter-spacing:-.02em;
+.story .beat__kick i{position:absolute;top:-.28em;inset-inline-start:-.04em;z-index:-1;
+  font-family:var(--display);font-size:clamp(3.2rem,7.6vw,6.2rem);line-height:1;letter-spacing:-.015em;
   color:color-mix(in srgb,var(--accent) 12%,transparent);pointer-events:none;white-space:nowrap}
 .story .beat__title{font-size:clamp(2rem,5.4vw,3.4rem);line-height:1.02;margin-top:.9rem}
 .story .beat__text{max-width:40ch;color:var(--ink-2)}
@@ -1042,3 +1044,106 @@ ul,ol,dl,dd{margin:0;padding:0;list-style:none}
 .foot__hash{margin-top:1.6rem;position:relative;display:inline-block;padding-top:1.4rem}
 .foot__hash::before{content:"";position:absolute;top:0;left:50%;translate:-50% 0;
   width:2.4rem;height:1px;background:color-mix(in srgb,var(--accent) 60%,transparent)}
+
+/* =============================================================================
+   STRUCTURES, NOT VARIATIONS
+   -----------------------------------------------------------------------------
+   Up to here every section shared one skeleton — centred eyebrow, centred
+   title, centred lead, content — and no amount of styling changes what that
+   reads as. These four are built differently from the ground up: a bleeding
+   spread, two margin-and-body ledgers, and a band with no heading at all.
+   ============================================================================= */
+
+/* ------------------------------------------- KISAH · the bleeding spread --- */
+.spread{position:relative;padding-block:clamp(5rem,13vw,9rem);isolation:isolate}
+/* the section names itself down the margin instead of over the top */
+.spread__rail{position:absolute;top:clamp(5rem,13vw,9rem);inset-inline-start:clamp(.6rem,2.4vw,2rem);
+  z-index:2;font-family:var(--util);font-weight:400;font-size:.62rem;letter-spacing:.42em;
+  text-transform:uppercase;color:var(--mute);writing-mode:vertical-rl;
+  opacity:0;transform:translateY(-1rem)}
+.spread__rail span{display:block;padding-block:1.4rem;position:relative}
+.spread__rail span::before{content:"";position:absolute;top:0;left:50%;translate:-50% 0;
+  width:1px;height:.9rem;background:var(--accent)}
+.played .spread__rail{animation:arrive 1s var(--ez) .1s both}
+@media (max-width:60rem){.spread__rail{display:none}}
+
+.spread__beats{display:grid;gap:clamp(3.5rem,9vw,7rem)}
+/* every beat runs edge to edge; the plate bleeds off one side of the page */
+.spread .beat{display:grid;gap:clamp(1.8rem,4vw,3rem);align-items:stretch;
+  grid-template-columns:1fr;padding-inline:clamp(1.25rem,5vw,4rem);overflow-x:clip}
+@media (min-width:60rem){
+  .spread .beat{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
+    gap:clamp(2.5rem,6vw,5rem);padding-inline:0;min-height:clamp(24rem,46vw,34rem)}
+  .spread .beat__body{align-content:center}
+  .spread .beat__art{margin-inline-start:0}
+  .spread .beat:nth-child(odd) .beat__art{order:2;margin-inline-end:0}
+  .spread .beat:nth-child(odd) .beat__body{padding-inline-start:clamp(3rem,9vw,8rem);padding-inline-end:2rem}
+  .spread .beat:nth-child(even) .beat__body{padding-inline-end:clamp(3rem,9vw,8rem);padding-inline-start:2rem;
+    text-align:right;justify-items:end}
+  .spread .beat:nth-child(even) .beat__kick{justify-content:flex-end}
+  .spread .beat:nth-child(even) .beat__quote::before{left:auto;right:0}
+  .spread .beat:nth-child(even) .beat__text{margin-inline-start:auto}
+}
+.spread .beat__body{position:relative;display:grid;gap:.5rem;isolation:isolate;overflow-x:clip}
+.spread .beat__kick{display:flex;gap:1rem;align-items:center}
+.spread .beat__kick em{font-family:var(--util);font-weight:500;font-size:.58rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--accent-ink);font-style:normal}
+.spread .beat__kick i{position:absolute;top:-.42em;inset-inline-start:-.05em;z-index:-1;font-style:normal;
+  font-family:var(--display);font-size:clamp(3.4rem,8vw,6.6rem);line-height:1;
+  color:color-mix(in srgb,var(--accent) 13%,transparent);white-space:nowrap;pointer-events:none}
+.spread .beat:nth-child(even) .beat__kick i{inset-inline-start:auto;inset-inline-end:-.05em}
+.spread .beat__title{font-family:var(--display);font-size:clamp(1.9rem,5vw,3.2rem);line-height:1.04;
+  margin-top:.7rem;letter-spacing:.03em;text-transform:uppercase}
+.spread .beat__text{margin-top:.4rem;max-width:38ch;color:var(--ink-2)}
+.spread .beat__quote{margin-top:1.6rem;padding-top:1.5rem;position:relative;border-top:0;max-width:40ch}
+.spread .beat__quote::before{content:"";position:absolute;top:0;left:0;width:3rem;height:1px;background:var(--accent)}
+/* the plate is a full-height panel that runs off the page edge */
+/* the plate fills its half of the spread and runs off the page edge */
+.spread .beat__art{display:grid}
+.spread .plate{aspect-ratio:auto;height:100%;min-height:clamp(18rem,40vw,30rem);width:100%;
+  max-height:none;clip-path:none;-webkit-clip-path:none;border-radius:0}
+@media (min-width:60rem){
+  /* a pointed-arch shoulder on the inner edge, not a blob */
+  .spread .beat:nth-child(odd) .plate{border-start-start-radius:56% 34%;border-end-start-radius:56% 34%}
+  .spread .beat:nth-child(even) .plate{border-start-end-radius:56% 34%;border-end-end-radius:56% 34%}
+}
+
+/* ---------------------------------- ATUR CARA + PANDUAN · margin and body -- */
+.split{position:relative;padding-block:clamp(5rem,13vw,9rem);isolation:isolate}
+.split--alt{background:var(--bg-2)}
+.split__grid{display:grid;gap:clamp(2.4rem,6vw,4rem)}
+@media (min-width:64rem){
+  .split__grid{grid-template-columns:17rem minmax(0,1fr);gap:clamp(4rem,9vw,8rem);align-items:start}
+  .split__aside{position:sticky;top:7rem}
+}
+.split__aside{display:grid;gap:1rem;align-content:start;
+  opacity:0;filter:blur(8px);transform:translateY(1rem)}
+.played .split__aside{animation:arrive 1s var(--ez) .05s both}
+.split__no{font-family:var(--display);font-size:.86rem;letter-spacing:.34em;color:var(--accent-ink)}
+.split__h{font-family:var(--display);font-size:clamp(1.7rem,4.4vw,2.6rem);line-height:1.06;
+  letter-spacing:.03em;text-transform:uppercase}
+.split__note{font-family:var(--body);font-style:italic;color:var(--ink-2);font-size:1.02rem;max-width:30ch}
+.split__flag{font-family:var(--util);font-weight:400;font-size:.56rem;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--mute);border-top:1px solid var(--line-soft);padding-top:.9rem}
+.split__body{min-width:0}
+.split .note{text-align:start;margin-top:1.6rem}
+.split .queries{margin-top:clamp(3rem,7vw,4.5rem)}
+.queries__h{font-family:var(--util);font-weight:500;font-size:.6rem;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--accent-ink);margin-bottom:1rem}
+/* the guide reads as a ledger, two to a row, numbered down the side */
+.split .tips{grid-template-columns:1fr}
+@media (min-width:46rem){.split .tips{grid-template-columns:1fr 1fr;column-gap:clamp(2.5rem,6vw,4.5rem)}}
+
+/* ---------------------------------------------- COUNTDOWN · a plain band --- */
+.band{position:relative;isolation:isolate;padding-block:clamp(4.5rem,11vw,7.5rem);
+  text-align:center;background:var(--bg-2);
+  border-block:1px solid var(--line-soft)}
+.band__lead{font-family:var(--util);font-weight:400;font-size:.58rem;letter-spacing:.42em;
+  text-transform:uppercase;color:var(--mute);margin-bottom:clamp(1.8rem,5vw,3rem);
+  opacity:0;transform:translateY(.8rem)}
+.played .band__lead{animation:arrive .9s var(--ez) .05s both}
+.band .cd{max-width:74rem;margin-inline:auto;padding-inline:clamp(1rem,4vw,3rem)}
+.band__foot{margin-top:clamp(1.8rem,5vw,2.8rem);font-family:var(--util);font-weight:300;
+  font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;color:var(--mute);
+  opacity:0;transform:translateY(.8rem)}
+.played .band__foot{animation:arrive .9s var(--ez) .75s both}

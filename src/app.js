@@ -199,6 +199,10 @@
   }
 
   /* ---------------------------------------------------------------- countdown */
+  /* Built once, then only the digits are patched. Re-rendering the markup every
+     second was restarting every entrance animation in the section once a
+     second, which is what made it flicker. */
+  var cdBuilt = false;
   function tickCountdown() {
     var host = $('[data-countdown]'); if (!host) return;
     var target = new Date(CFG.countdownTo || '2026-10-10T10:00:00+08:00').getTime();
@@ -209,12 +213,24 @@
       [Math.floor(diff / 6e4) % 60, 'minutes'],
       [Math.floor(diff / 1e3) % 60, 'seconds']
     ];
-    host.innerHTML = units.map(function (u) {
-      return '<div class="cd__unit"><span class="cd__num foil">' + String(u[0]).padStart(2, '0') + '</span>' +
-             '<span class="cd__label">' + esc(t('countdown.' + u[1])) + '</span></div>';
-    }).join('');
+    if (!cdBuilt || host.children.length !== units.length) {
+      host.innerHTML = units.map(function (u) {
+        return '<div class="cd__unit" data-seq><span class="cd__num foil"></span>' +
+               '<span class="cd__label"></span></div>';
+      }).join('');
+      cdBuilt = true;
+    }
+    units.forEach(function (u, i) {
+      var unit = host.children[i]; if (!unit) return;
+      var num = String(u[0]).padStart(2, '0');
+      var numEl = unit.firstChild, labEl = unit.lastChild;
+      if (numEl.textContent !== num) numEl.textContent = num;
+      var lab = t('countdown.' + u[1]);
+      if (labEl.textContent !== lab) labEl.textContent = lab;
+    });
     if (diff === 0) { var d = $('[data-countdown-done]'); if (d) d.hidden = false; }
   }
+  /* a language change relabels without rebuilding */
   setInterval(tickCountdown, 1000);
 
   /* ----------------------------------------------------------------- calendar */

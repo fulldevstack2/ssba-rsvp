@@ -103,10 +103,10 @@
   <!-- ================================================== STAGE · THE STORY == -->
   <!-- Four beats, one frame. The scroll cuts between them rather than scrolling
        them past, so each gets the whole screen to itself. -->
-  <section class="story" id="kisah" data-play>
+  <section class="spread" id="kisah" data-play>
     <div class="amb amb--silk" aria-hidden="true"></div>
-    <p class="story__h" data-play data-i18n="story.title"></p>
-    <div class="story__beats" data-story-beats></div>
+    <p class="spread__rail" aria-hidden="true"><span data-i18n="story.title"></span></p>
+    <div class="spread__beats" data-story-beats></div>
   </section>
 
   <div class="quote" data-play>
@@ -130,42 +130,46 @@
   </section>
 
   <!-- ================================================== STAGE · THE COUNT == -->
-  <section class="act count" data-play>
+  <section class="band count" data-play>
     <div class="amb amb--bloom" aria-hidden="true"></div>
-    <div class="act__in">
-      <p class="count__h" data-i18n="countdown.title"></p>
-      <div class="cd" data-countdown></div>
-      <p class="cd__done" data-countdown-done hidden data-i18n="countdown.done"></p>
-    </div>
+    <p class="band__lead" data-i18n="countdown.title"></p>
+    <div class="cd" data-countdown></div>
+    <p class="band__foot"><span data-i18n="hero.day"></span> &middot; 10 Oktober 2026 &middot; 29 Rabiulakhir 1448H</p>
+    <p class="cd__done" data-countdown-done hidden data-i18n="countdown.done"></p>
   </section>
 
   <!-- ======================================================== ATUR CARA ==== -->
-  <section class="bay" id="atur" data-play>
+  <section class="split" id="atur" data-play>
     <div class="amb amb--silk" aria-hidden="true"></div>
-    <div class="shell narrow">
-      <div class="head">
-        <p class="eyebrow" data-i18n="labels.provisional"></p>
-        <h2 class="head__title" data-i18n="scheduleBlock.title"></h2>
-        <p class="head__lead lead" data-i18n="scheduleBlock.lead"></p>
+    <div class="shell split__grid">
+      <aside class="split__aside">
+        <p class="split__no">III</p>
+        <h2 class="split__h" data-i18n="scheduleBlock.title"></h2>
+        <p class="split__note" data-i18n="scheduleBlock.lead"></p>
+        <p class="split__flag" data-i18n="labels.provisional"></p>
+      </aside>
+      <div class="split__body">
+        <ol data-schedule></ol>
+        <p class="note" data-i18n="scheduleBlock.note"></p>
       </div>
-      <ol data-schedule></ol>
-      <p class="note" data-i18n="scheduleBlock.note"></p>
     </div>
   </section>
 
   <!-- ========================================================== PANDUAN ==== -->
-  <section class="bay bay--alt" id="panduan" data-play>
+  <section class="split split--alt" id="panduan" data-play>
     <div class="amb amb--songket" aria-hidden="true"></div>
-    <div class="shell">
-      <div class="head">
-        <p class="eyebrow" data-i18n="nav.travel"></p>
-        <h2 class="head__title" data-i18n="travel.title"></h2>
-        <p class="head__lead lead" data-i18n="travel.lead"></p>
-      </div>
-      <div class="tips" data-travel></div>
-      <div class="narrow" style="margin-top:clamp(3.5rem,9vw,5.5rem)">
-        <div class="head" style="margin-bottom:1.4rem"><p class="eyebrow" data-i18n="faq.title"></p></div>
-        <div data-faq></div>
+    <div class="shell split__grid">
+      <aside class="split__aside">
+        <p class="split__no">IV</p>
+        <h2 class="split__h" data-i18n="travel.title"></h2>
+        <p class="split__note" data-i18n="travel.lead"></p>
+      </aside>
+      <div class="split__body">
+        <div class="tips" data-travel></div>
+        <div class="queries">
+          <p class="queries__h" data-i18n="faq.title"></p>
+          <div data-faq></div>
+        </div>
       </div>
     </div>
   </section>
